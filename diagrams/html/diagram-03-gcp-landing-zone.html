@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 3 — GCP Landing Zone Architecture</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 1rem; }
+    .lz-icon { width: 16px; height: 16px; flex-shrink: 0; }
+    .lz-org-header {
+      background: var(--dgm-blue); color: white; text-align: center;
+      padding: 0.5rem; border-radius: var(--radius-diagram);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em;
+    }
+    .lz-row { display: flex; gap: 0.5rem; align-items: stretch; }
+    .lz-col {
+      flex: 1; border-radius: var(--radius-diagram);
+      display: flex; flex-direction: column;
+      min-width: 0;
+    }
+    .lz-col-header {
+      padding: 0.4rem 0.5rem; border-radius: var(--radius-diagram) var(--radius-diagram) 0 0;
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.03em; text-align: center;
+    }
+    .lz-col-body {
+      flex: 1; padding: 0.4rem 0.4rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+      border-radius: 0 0 var(--radius-diagram) var(--radius-diagram);
+      overflow-y: auto;
+    }
+    .lz-item {
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0.25rem 0.35rem; border-radius: 3px;
+      font-size: 0.55rem; color: var(--dgm-neutral-800);
+      line-height: 1.25; min-height: 1.75rem;
+      background: white; border: 1px solid var(--dgm-neutral-200);
+    }
+    .lz-item-sub { font-size: 0.48rem; color: var(--dgm-neutral-500); margin-left: 1.25rem; margin-bottom: 0.15rem; }
+
+    /* Platform column (zinc) */
+    .lz-col-platform .lz-col-header { background: var(--dgm-neutral-500); color: white; }
+    .lz-col-platform .lz-col-body { background: var(--dgm-neutral-50); }
+    .lz-col-platform { border: 1.5px solid var(--dgm-neutral-500); }
+
+    /* Domains column (blue) */
+    .lz-col-domains .lz-col-header { background: var(--dgm-blue); color: white; }
+    .lz-col-domains .lz-col-body { background: white; }
+    .lz-col-domains { border: 1.5px solid var(--dgm-blue); }
+
+    /* Domains-Dev column (blue tint) */
+    .lz-col-domainsdev .lz-col-header { background: var(--dgm-highlight-bg); color: var(--dgm-blue); }
+    .lz-col-domainsdev .lz-col-body { background: var(--dgm-highlight-bg); }
+    .lz-col-domainsdev { border: 1.5px solid rgba(37,99,235,0.3); }
+
+    /* Security column (violet) */
+    .lz-col-security .lz-col-header { background: var(--dgm-violet); color: white; }
+    .lz-col-security .lz-col-body { background: rgba(124,58,237,0.03); }
+    .lz-col-security { border: 1.5px solid var(--dgm-violet); }
+
+    /* Shared Services column (neutral) */
+    .lz-col-shared .lz-col-header { background: var(--dgm-neutral-800); color: white; }
+    .lz-col-shared .lz-col-body { background: var(--dgm-neutral-50); }
+    .lz-col-shared { border: 1.5px solid var(--dgm-neutral-800); }
+
+    .lz-star { color: var(--dgm-blue); font-weight: 700; }
+    .lz-section-label {
+      font-size: 0.5rem; font-weight: 700; color: var(--dgm-neutral-500);
+      text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 0.2rem 0; border-bottom: 1px solid var(--dgm-neutral-200);
+      margin-bottom: 0.1rem;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 3 — GCP Landing Zone Architecture</div>
+  <div class="dgm-container" style="max-width: 1300px; gap: 0.5rem;">
+
+    <!-- Organization header -->
+    <div class="lz-org-header">NOAA Fisheries GCP Organization</div>
+
+    <!-- 5 equal-width columns -->
+    <div class="lz-row">
+
+      <!-- Platform -->
+      <div class="lz-col lz-col-platform">
+        <div class="lz-col-header">Platform</div>
+        <div class="lz-col-body">
+          <div class="lz-section-label">Networking</div>
+          <div class="lz-item">
+            <img src="../Category Icons/Networking/SVG/Networking-512-color-rgb.svg" class="lz-icon" alt="">
+            <span>Cloud Interconnect</span>
+            <span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">→ Science Centers</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Networking/SVG/Networking-512-color-rgb.svg" class="lz-icon" alt="">
+            <span>VPC Service Controls</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Networking/SVG/Networking-512-color-rgb.svg" class="lz-icon" alt="">
+            <span>Cloud NAT</span>
+          </div>
+
+          <div class="lz-section-label">Services</div>
+          <div class="lz-item">
+            <img src="../Category Icons/Developer Tools/SVG/Developer_Tools-512-color.svg" class="lz-icon" alt="">
+            <span>Cloud Build</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>IAM</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Cloud DLP</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Security Command Center</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="lz-icon" alt="">
+            <span>Monitoring</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="lz-icon" alt="">
+            <span>BigQuery</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Operations/SVG/Operations-512-color.svg" class="lz-icon" alt="">
+            <span>Billing</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Operations/SVG/Operations-512-color.svg" class="lz-icon" alt="">
+            <span>Carbon Footprint</span>
+          </div>
+
+          <div class="lz-section-label">Identity</div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Federated to NOAA Azure AD</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Custom Roles (DPO, Consumer, Admin)</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>CMEK (FIPS 140-2)</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Workload Identity Federation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domains -->
+      <div class="lz-col lz-col-domains">
+        <div class="lz-col-header">Domains</div>
+        <div class="lz-col-body">
+          <div class="lz-section-label">Projects</div>
+          <div class="lz-item"><span class="lz-star">★</span><span>Fishery Monitoring</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">fishery-monitoring-prod</span></div>
+          <div class="lz-item"><span>Stock Assessment</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">stock-assessment-prod</span></div>
+          <div class="lz-item"><span>Vessel Operations</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">vessel-operations-prod</span></div>
+          <div class="lz-item"><span>Permits</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">permits-prod</span></div>
+          <div class="lz-item"><span>Protected Species</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">protected-species-prod</span></div>
+          <div class="lz-item"><span>Habitat</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">habitat-prod</span></div>
+          <div class="lz-item"><span>Socioeconomics</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">socioeconomics-prod</span></div>
+          <div class="lz-item"><span>Enforcement</span><span style="font-size:0.45rem;color:var(--dgm-neutral-500);margin-left:auto;">enforcement-prod</span></div>
+        </div>
+      </div>
+
+      <!-- Domains-Dev -->
+      <div class="lz-col lz-col-domainsdev">
+        <div class="lz-col-header">Domains-Dev</div>
+        <div class="lz-col-body">
+          <div class="lz-section-label">Development</div>
+          <div class="lz-item" style="flex-direction:column; align-items:flex-start;">
+            <span>Per-domain sandbox projects</span>
+            <span style="font-size:0.45rem;color:var(--dgm-neutral-500);">Mirror of Domains</span>
+          </div>
+          <div class="lz-item" style="background:var(--dgm-highlight-bg); border:none; font-size:0.48rem; color:var(--dgm-blue);">
+            Isolated from production. Domain teams iterate on new data products without affecting live consumers.
+          </div>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="lz-col lz-col-security">
+        <div class="lz-col-header">Security</div>
+        <div class="lz-col-body">
+          <div class="lz-section-label">security-audit</div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Security Command Center</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="lz-icon" alt="">
+            <span>Cloud Logging</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="lz-icon" alt="">
+            <span>Audit Management</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shared Services -->
+      <div class="lz-col lz-col-shared">
+        <div class="lz-col-header">Shared Services</div>
+        <div class="lz-col-body">
+          <div class="lz-section-label">shared-reference-data</div>
+          <div class="lz-item">
+            <img src="../Category Icons/Management Tools/SVG/ManagementTools-512-color.svg" class="lz-icon" alt="">
+            <span>Species Taxonomy</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Management Tools/SVG/ManagementTools-512-color.svg" class="lz-icon" alt="">
+            <span>Vessel Registry</span>
+          </div>
+          <div class="lz-item">
+            <img src="../Category Icons/Maps & Geospatial/SVG/MapsGeospatial-512-color.svg" class="lz-icon" alt="">
+            <span>Geographic Areas</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div style="text-align:center;font-size:0.5rem;color:var(--dgm-neutral-500);font-style:italic;margin-top:0.25rem;max-width:1300px;">
+      Full domain names: Stock Assessment and Surveys · Fishery Monitoring · Vessel Operations, Catch and Effort · Permits and Limited Access · Protected Species and Bycatch · Habitat Conservation · Socioeconomics · Enforcement
+    </div>
+
+  </div>
+</body>
+</html>

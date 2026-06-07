@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 8b — Migration Data Flow: Consumer Perspective</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 1rem; }
+    .mdf-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+
+    .mdf-title {
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-500);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Three panels row */
+    .mdf-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .mdf-panel {
+      border: 2px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 0.5rem;
+    }
+
+    .mdf-panel-header {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.8rem;
+      border-radius: var(--radius-diagram);
+    }
+
+    .mdf-panel-before .mdf-panel-header { background: var(--dgm-neutral-100); color: var(--dgm-neutral-500); }
+    .mdf-panel-before { border-color: var(--dgm-neutral-200); }
+
+    .mdf-panel-during .mdf-panel-header { background: rgba(217,119,6,0.1); color: var(--dgm-amber); }
+    .mdf-panel-during { border-color: var(--dgm-amber); }
+
+    .mdf-panel-after .mdf-panel-header { background: rgba(5,150,105,0.1); color: var(--dgm-emerald); }
+    .mdf-panel-after { border-color: var(--dgm-emerald); }
+
+    /* Nodes */
+    .mdf-node {
+      background: white;
+      border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 0.4rem 0.6rem;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--dgm-neutral-800);
+      text-align: center;
+      box-shadow: var(--shadow-diagram);
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .mdf-node-consumer {
+      border-color: var(--dgm-blue);
+      background: rgba(37,99,235,0.04);
+      color: var(--dgm-blue);
+    }
+
+    .mdf-node-acl {
+      border-color: var(--dgm-violet);
+      background: rgba(124,58,237,0.04);
+      color: var(--dgm-violet);
+    }
+
+    .mdf-node-oracle {
+      border-color: var(--dgm-rose);
+      background: rgba(225,29,72,0.04);
+      color: var(--dgm-rose);
+    }
+
+    .mdf-node-bigquery {
+      border-color: var(--dgm-emerald);
+      background: rgba(5,150,105,0.04);
+      color: var(--dgm-emerald);
+    }
+
+    .mdf-node-dimmed {
+      opacity: 0.35;
+      border-style: dashed;
+    }
+
+    .mdf-node-label {
+      font-size: 0.5rem;
+      font-weight: 400;
+      color: var(--dgm-neutral-500);
+      margin-top: 0.15rem;
+      display: block;
+    }
+
+    /* Arrows between nodes (CSS) */
+    .mdf-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      font-size: 0.45rem;
+      color: var(--dgm-neutral-400);
+      font-weight: 600;
+    }
+
+    .mdf-arrow-dot {
+      width: 0.35rem;
+      height: 0.35rem;
+      border-radius: 50%;
+      background: var(--dgm-neutral-300);
+      margin: 0.1rem 0;
+    }
+
+    .mdf-arrow-line {
+      width: 1px;
+      height: 0.8rem;
+      background: var(--dgm-neutral-300);
+    }
+
+    .mdf-arrow-active .mdf-arrow-dot { background: var(--dgm-blue); }
+    .mdf-arrow-active .mdf-arrow-line { background: var(--dgm-blue); }
+
+    /* Backend row (side by side) */
+    .mdf-backends {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .mdf-backend-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      flex: 1;
+      max-width: 95px;
+    }
+
+    /* Phase annotation */
+    .mdf-phase-note {
+      font-size: 0.48rem;
+      color: var(--dgm-neutral-500);
+      font-style: italic;
+      text-align: center;
+      margin-top: 0.3rem;
+      line-height: 1.3;
+    }
+
+    /* Legend row */
+    .mdf-legend {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.55rem;
+      color: var(--dgm-neutral-500);
+      margin-top: 0.5rem;
+    }
+    .mdf-legend-swatch {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div class="mdf-container">
+    <div class="mdf-title">Diagram 8b — Migration Data Flow: Consumer Perspective</div>
+
+    <div class="mdf-panels">
+
+      <!-- Panel 1: Before -->
+      <div class="mdf-panel mdf-panel-before">
+        <div class="mdf-panel-header">Before Migration</div>
+
+        <div class="mdf-node mdf-node-consumer">Stock Assessment Scientist</div>
+
+        <div class="mdf-arrow mdf-arrow-active">
+          <div class="mdf-arrow-line"></div>
+          <div class="mdf-arrow-dot"></div>
+          <span>queries</span>
+        </div>
+
+        <div class="mdf-node mdf-node-acl">Anti-Corruption Layer<br><span class="mdf-node-label">Cloud Run REST API</span></div>
+
+        <div class="mdf-arrow mdf-arrow-active">
+          <div class="mdf-arrow-line"></div>
+          <div class="mdf-arrow-dot"></div>
+          <span>routes to</span>
+        </div>
+
+        <div class="mdf-node mdf-node-oracle">Legacy Oracle<br><span class="mdf-node-label">100% of traffic</span></div>
+
+        <div class="mdf-phase-note">The legacy catch accounting database handles all queries. The ACL provides a clean API but translates to legacy schemas beneath.</div>
+      </div>
+
+      <!-- Panel 2: During -->
+      <div class="mdf-panel mdf-panel-during">
+        <div class="mdf-panel-header">During Migration</div>
+
+        <div class="mdf-node mdf-node-consumer">Stock Assessment Scientist</div>
+
+        <div class="mdf-arrow mdf-arrow-active">
+          <div class="mdf-arrow-line"></div>
+          <div class="mdf-arrow-dot"></div>
+          <span>queries</span>
+        </div>
+
+        <div class="mdf-node mdf-node-acl">Anti-Corruption Layer<br><span class="mdf-node-label">Cloud Run REST API</span></div>
+
+        <div class="mdf-arrow">
+          <div class="mdf-arrow-line"></div>
+          <div class="mdf-arrow-dot"></div>
+          <span>splits traffic</span>
+        </div>
+
+        <div class="mdf-backends">
+          <div class="mdf-backend-col">
+            <div class="mdf-node mdf-node-oracle">Legacy Oracle<br><span class="mdf-node-label">Historical data</span></div>
+            <span style="font-size:0.45rem;color:var(--dgm-neutral-400);">Data not yet migrated</span>
+          </div>
+          <div class="mdf-backend-col">
+            <div class="mdf-node mdf-node-bigquery">BigQuery<br><span class="mdf-node-label">New/migrated data</span></div>
+            <span style="font-size:0.45rem;color:var(--dgm-emerald);">Strangler Fig active</span>
+          </div>
+        </div>
+
+        <div class="mdf-phase-note">The ACL routes transparently: queries for pre-migration data go to Oracle; queries for new or migrated data go to BigQuery. The consumer sees no difference.</div>
+      </div>
+
+      <!-- Panel 3: After -->
+      <div class="mdf-panel mdf-panel-after">
+        <div class="mdf-panel-header">After Migration</div>
+
+        <div class="mdf-node mdf-node-consumer">Stock Assessment Scientist</div>
+
+        <div class="mdf-arrow mdf-arrow-active">
+          <div class="mdf-arrow-line"></div>
+          <div class="mdf-arrow-dot"></div>
+          <span>queries</span>
+        </div>
+
+        <div class="mdf-node mdf-node-acl">Anti-Corruption Layer<br><span class="mdf-node-label">Cloud Run REST API</span></div>
+
+        <div class="mdf-arrow mdf-arrow-active">
+          <div class="mdf-arrow-line"></div>
+          <div class="mdf-arrow-dot"></div>
+          <span>routes to</span>
+        </div>
+
+        <div class="mdf-node mdf-node-bigquery">BigQuery Data Product<br><span class="mdf-node-label">100% of traffic</span></div>
+
+        <div class="mdf-node mdf-node-dimmed mdf-node-oracle" style="max-width:180px;">Legacy Oracle<br><span class="mdf-node-label">Decommissioned</span></div>
+
+        <div class="mdf-phase-note">All data has been migrated and validated through Parallel Run. Oracle is decommissioned. The consumer still queries the same API.</div>
+      </div>
+
+    </div>
+
+    <!-- Legend -->
+    <div class="mdf-legend">
+      <span style="display:flex;align-items:center;gap:0.25rem;"><span class="mdf-legend-swatch" style="background:var(--dgm-blue);"></span> Consumer</span>
+      <span style="display:flex;align-items:center;gap:0.25rem;"><span class="mdf-legend-swatch" style="background:var(--dgm-violet);"></span> ACL</span>
+      <span style="display:flex;align-items:center;gap:0.25rem;"><span class="mdf-legend-swatch" style="background:var(--dgm-rose);"></span> Legacy</span>
+      <span style="display:flex;align-items:center;gap:0.25rem;"><span class="mdf-legend-swatch" style="background:var(--dgm-emerald);"></span> BigQuery</span>
+      <span style="font-size:0.5rem;color:var(--dgm-neutral-400);">Consumer experience never changes — always the same API.</span>
+    </div>
+
+  </div>
+</body>
+</html>

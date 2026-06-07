@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 13 — Federated NOAA Enterprise Approach</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 2.5rem; display: flex; justify-content: center; }
+
+    .fed-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .fed-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* Main layout wrapper */
+    .fed-layout {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    /* Line office foundation row (Option A: multi-line-office context) */
+    .fed-lo-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fed-lo-card {
+      background: var(--dgm-neutral-50);
+      border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 0.6rem 0.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      min-height: 3rem;
+    }
+
+    .fed-lo-highlight {
+      border: 2px solid var(--dgm-blue);
+      background: var(--dgm-highlight-bg);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+    }
+
+    .fed-lo-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      letter-spacing: 0.04em;
+    }
+
+    .fed-lo-sub {
+      font-size: 0.5rem;
+      color: var(--dgm-blue);
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    /* Four federation elements row */
+    .fed-elements-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fed-element {
+      background: white;
+      border: 2px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 1rem 0.85rem;
+      box-shadow: var(--shadow-diagram);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .fed-element-number {
+      font-size: 0.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dgm-neutral-500);
+    }
+
+    .fed-element-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      line-height: 1.25;
+    }
+
+    .fed-element-body {
+      font-size: 0.6rem;
+      color: var(--dgm-neutral-500);
+      line-height: 1.35;
+    }
+
+    /* Color variants */
+    .fed-elem-contracts { border-color: var(--dgm-blue); }
+    .fed-elem-contracts .fed-element-number { color: var(--dgm-blue); }
+    .fed-elem-catalog { border-color: var(--dgm-amber); }
+    .fed-elem-catalog .fed-element-number { color: var(--dgm-amber); }
+    .fed-elem-gateways { border-color: var(--dgm-emerald); }
+    .fed-elem-gateways .fed-element-number { color: var(--dgm-emerald); }
+    .fed-elem-governance { border-color: var(--dgm-violet); }
+    .fed-elem-governance .fed-element-number { color: var(--dgm-violet); }
+
+    /* Cross-connection labels row (in flow, avoids absolute positioning overlap) */
+    .fed-cross-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fed-cross-label {
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: var(--dgm-neutral-500);
+      text-align: center;
+      line-height: 1.3;
+      font-style: italic;
+    }
+
+    .fed-cross-spacer {
+      /* empty column to maintain grid alignment */
+    }
+
+    /* External cloud row */
+    .fed-clouds-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .fed-cloud {
+      background: var(--dgm-neutral-50);
+      border: 1px dashed var(--dgm-neutral-300);
+      border-radius: var(--radius-diagram);
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--dgm-neutral-500);
+    }
+
+    /* SVG overlay */
+    .fed-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Edge labels */
+    .fed-edge-label {
+      position: absolute;
+      z-index: 8;
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: var(--dgm-neutral-500);
+      background: var(--dgm-neutral-50);
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+      pointer-events: none;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* Legend */
+    .fed-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.58rem;
+      color: var(--dgm-neutral-500);
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .fed-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .fed-legend-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .fed-legend-dot-blue { background: var(--dgm-blue); }
+    .fed-legend-dot-amber { background: var(--dgm-amber); }
+    .fed-legend-dot-emerald { background: var(--dgm-emerald); }
+    .fed-legend-dot-violet { background: var(--dgm-violet); }
+
+    .fed-legend-line {
+      width: 1.5rem;
+      height: 1px;
+      border-top: 1.5px solid var(--dgm-neutral-300);
+      flex-shrink: 0;
+    }
+
+    .fed-legend-line-dashed {
+      width: 1.5rem;
+      height: 1px;
+      border-top: 1.5px dashed var(--dgm-neutral-300);
+      flex-shrink: 0;
+    }
+
+    /* Annotation */
+    .fed-annotation {
+      margin-top: 1rem;
+      font-size: 0.58rem;
+      color: var(--dgm-neutral-500);
+      text-align: center;
+      line-height: 1.4;
+      max-width: 700px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div class="fed-container" id="fedContainer">
+    <div class="fed-title">Diagram 13 &mdash; Federated NOAA Enterprise Approach: Elements of Pragmatic Federation</div>
+
+    <div class="fed-layout" id="fedLayout">
+
+      <!-- Foundation: NOAA Line Offices (each operates independently) -->
+      <div class="fed-lo-row" id="fedFoundationRow">
+        <div class="fed-lo-card">
+          <div class="fed-lo-label">NWS</div>
+        </div>
+        <div class="fed-lo-card fed-lo-highlight" id="fedFoundation">
+          <div class="fed-lo-label">NMFS</div>
+          <div class="fed-lo-sub">Internal Data Mesh</div>
+        </div>
+        <div class="fed-lo-card">
+          <div class="fed-lo-label">NESDIS</div>
+        </div>
+        <div class="fed-lo-card">
+          <div class="fed-lo-label">OAR</div>
+        </div>
+        <div class="fed-lo-card">
+          <div class="fed-lo-label">NOS</div>
+        </div>
+      </div>
+
+      <!-- Cross-connection labels row (in flow, between foundation and elements) -->
+      <div class="fed-cross-row">
+        <div class="fed-cross-label">Policy defines contract standards</div>
+        <div class="fed-cross-spacer"></div>
+        <div class="fed-cross-spacer"></div>
+        <div class="fed-cross-label">Catalog enables gateway routing</div>
+      </div>
+
+      <!-- Four federation elements -->
+      <div class="fed-elements-row">
+        <div class="fed-element fed-elem-contracts" id="fedElem1">
+          <div class="fed-element-number">Element 1</div>
+          <div class="fed-element-title">Standardized Data Product Contracts</div>
+          <div class="fed-element-body">Cross-NOAA schema, quality metrics, and access controls enabling line offices to publish interoperable data products.</div>
+        </div>
+        <div class="fed-element fed-elem-catalog" id="fedElem2">
+          <div class="fed-element-number">Element 2</div>
+          <div class="fed-element-title">Federated Data Catalog</div>
+          <div class="fed-element-body">Line office catalogs federated into a NOAA-wide discovery portal for cross-office data product discoverability.</div>
+        </div>
+        <div class="fed-element fed-elem-gateways" id="fedElem3">
+          <div class="fed-element-number">Element 3</div>
+          <div class="fed-element-title">Cross-Cloud Data Access Gateways</div>
+          <div class="fed-element-body">Cloud Broker pattern with policy enforcement, cost attribution, and cross-platform access routing.</div>
+        </div>
+        <div class="fed-element fed-elem-governance" id="fedElem4">
+          <div class="fed-element-number">Element 4</div>
+          <div class="fed-element-title">Enterprise Data Governance Council</div>
+          <div class="fed-element-body">Cross-NOAA standards body reconciling statutory requirements across line offices and mission areas.</div>
+        </div>
+      </div>
+
+      <!-- External cloud platforms -->
+      <div class="fed-clouds-row">
+        <div class="fed-cloud">AWS</div>
+        <div class="fed-cloud">Azure</div>
+        <div class="fed-cloud">OCI</div>
+        <div class="fed-cloud">GCP</div>
+      </div>
+
+      <!-- SVG overlay for connecting lines -->
+      <svg class="fed-lines" id="fedSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <!-- Edge labels -->
+      <div class="fed-edge-label" id="fedLabelConnect" style="top: 18%; left: 50%; transform: translateX(-50%);">Connects via standardized interfaces</div>
+
+      <div class="fed-edge-label" id="fedLabelFederation" style="bottom: 12%; left: 50%; transform: translateX(-50%);">Cross-platform federation</div>
+    </div>
+
+    <!-- Legend -->
+    <div class="fed-legend">
+      <div class="fed-legend-item"><span class="fed-legend-dot fed-legend-dot-blue"></span> Contracts</div>
+      <div class="fed-legend-item"><span class="fed-legend-dot fed-legend-dot-amber"></span> Catalog</div>
+      <div class="fed-legend-item"><span class="fed-legend-dot fed-legend-dot-emerald"></span> Gateways</div>
+      <div class="fed-legend-item"><span class="fed-legend-dot fed-legend-dot-violet"></span> Governance Council</div>
+      <div class="fed-legend-item"><span class="fed-legend-line"></span> NMFS to Enterprise</div>
+      <div class="fed-legend-item"><span class="fed-legend-line-dashed"></span> Cross-Element Link</div>
+    </div>
+
+    <!-- Annotation -->
+    <div class="fed-annotation">
+      This is a pragmatic federation, not a unified data mesh. The four elements enable NOAA-wide data sharing without requiring all line offices to adopt a common platform. The NMFS internal data mesh connects to the enterprise through standardized contracts, federated discovery, cross-cloud gateways, and shared governance &mdash; each element can be adopted independently as organizational readiness permits.
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      function drawLines() {
+        const layout = document.getElementById('fedLayout');
+        const svg = document.getElementById('fedSvg');
+        const foundation = document.getElementById('fedFoundation');
+        const elem1 = document.getElementById('fedElem1');
+        const elem2 = document.getElementById('fedElem2');
+        const elem3 = document.getElementById('fedElem3');
+        const elem4 = document.getElementById('fedElem4');
+
+        if (!layout || !svg || !foundation || !elem1 || !elem2 || !elem3 || !elem4) return;
+
+        const layoutRect = layout.getBoundingClientRect();
+        const foundationRect = foundation.getBoundingClientRect();
+        const e1Rect = elem1.getBoundingClientRect();
+        const e2Rect = elem2.getBoundingClientRect();
+        const e3Rect = elem3.getBoundingClientRect();
+        const e4Rect = elem4.getBoundingClientRect();
+
+
+        // SVG dimensions
+        svg.setAttribute('width', layoutRect.width);
+        svg.setAttribute('height', layoutRect.height);
+        svg.style.width = layoutRect.width + 'px';
+        svg.style.height = layoutRect.height + 'px';
+
+        const toLocalX = (absX) => absX - layoutRect.left;
+        const toLocalY = (absY) => absY - layoutRect.top;
+
+        let html = '';
+
+        // Marker definitions
+        html += '<defs>';
+        html += '<marker id="arrowBlue13" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563EB"/></marker>';
+        html += '<marker id="arrowGray13" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#71717A"/></marker>';
+        html += '</defs>';
+
+        // Foundation center
+        const fCX = toLocalX(foundationRect.left + foundationRect.width / 2);
+        const fCY = toLocalY(foundationRect.top + foundationRect.height / 2);
+        const fBottom = toLocalY(foundationRect.bottom);
+
+        const elements = [
+          { rect: e1Rect, id: 'e1' },
+          { rect: e2Rect, id: 'e2' },
+          { rect: e3Rect, id: 'e3' },
+          { rect: e4Rect, id: 'e4' }
+        ];
+
+        const elemTops = [];
+
+        // Draw lines from foundation to each element
+        elements.forEach((elem, i) => {
+          const eCX = toLocalX(elem.rect.left + elem.rect.width / 2);
+          const eCY = toLocalY(elem.rect.top + elem.rect.height / 2);
+          const eTop = toLocalY(elem.rect.top);
+          elemTops.push({ cx: eCX, top: eTop, bottom: toLocalY(elem.rect.bottom) });
+
+          // Foundation bottom-center to element top-center
+          const sx = fCX + (eCX - fCX) * 0.3;
+          const ex = eCX;
+          const sy = fBottom;
+          const ey = eTop;
+
+          html += `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowBlue13)" opacity="0.5"/>`;
+        });
+
+        // Cross-connections between elements
+        // E1 ↔ E4: "Policy defines contract standards"
+        if (elemTops[0] && elemTops[3]) {
+          const y = elemTops[0].top + (elemTops[0].bottom - elemTops[0].top) * 0.35;
+          const x1 = toLocalX(e1Rect.right);
+          const x2 = toLocalX(e4Rect.left);
+          html += `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#D4D4D8" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>`;
+        }
+
+        // E2 ↔ E3: "Catalog enables gateway routing"
+        if (elemTops[1] && elemTops[2]) {
+          const y = elemTops[1].top + (elemTops[1].bottom - elemTops[1].top) * 0.35;
+          const x1 = toLocalX(e2Rect.right);
+          const x2 = toLocalX(e3Rect.left);
+          html += `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#D4D4D8" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>`;
+        }
+
+        svg.innerHTML = html;
+      }
+
+      window.addEventListener('load', function() {
+        setTimeout(drawLines, 100);
+      });
+      window.addEventListener('resize', drawLines);
+      setTimeout(drawLines, 500);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+/* ===================================================================
+   Design System — Data Mesh Reference Architecture Diagrams
+   Distinct Semantic Palette | Modern, Clean | Stacked Layout
+   =================================================================== */
+
+/* ===================================================================
+   Color Tokens
+   =================================================================== */
+:root {
+    /* Neutral scale */
+    --dgm-neutral-50: #FAFAFA;
+    --dgm-neutral-100: #F4F4F5;
+    --dgm-neutral-200: #E4E4E7;
+    --dgm-neutral-300: #D4D4D8;
+    --dgm-neutral-500: #71717A;
+    --dgm-neutral-800: #27272A;
+
+    /* Semantic accent colors */
+    --dgm-blue: #2563EB;
+    --dgm-amber: #D97706;
+    --dgm-emerald: #059669;
+    --dgm-violet: #7C3AED;
+    --dgm-rose: #E11D48;
+    --dgm-cyan: #0891B2;
+
+    /* Highlight */
+    --dgm-highlight-bg: rgba(37, 99, 235, 0.08);
+    --dgm-highlight-border: #2563EB;
+
+    /* Shape tokens */
+    --radius-diagram: 0.5rem;
+    --radius-cylinder-top: 0.75rem;
+    --radius-cylinder-bottom: 40%;
+    --shadow-diagram: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* ===================================================================
+   Page Level
+   =================================================================== */
+body.dgm-page {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: white;
+    color: var(--dgm-neutral-800);
+    margin: 0;
+    padding: 2rem;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===================================================================
+   Container Layout
+   =================================================================== */
+.dgm-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.dgm-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+/* ===================================================================
+   Section Base
+   =================================================================== */
+.dgm-section {
+    flex: 1;
+    border-radius: var(--radius-diagram);
+    padding: 1rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Solid border sections (organizational boundaries) */
+.dgm-section-solid {
+    border: 2px solid var(--dgm-neutral-200);
+}
+
+/* Dashed border sections (logical/flow groupings) */
+.dgm-section-dashed {
+    border: 2px dashed var(--dgm-neutral-200);
+}
+
+/* ===================================================================
+   Semantic Section Variants
+   =================================================================== */
+
+/* Domain / Product — solid blue */
+.dgm-section-domain {
+    border: 2px solid var(--dgm-blue);
+    background: white;
+}
+
+/* Upstream / External — dashed amber */
+.dgm-section-upstream {
+    border: 2px dashed var(--dgm-amber);
+    background: rgba(217, 119, 6, 0.04);
+}
+
+/* Downstream / Consumer — dashed emerald */
+.dgm-section-downstream {
+    border: 2px dashed var(--dgm-emerald);
+    background: rgba(5, 150, 105, 0.04);
+}
+
+/* Platform / Infrastructure — solid neutral */
+.dgm-section-platform {
+    border: 2px solid var(--dgm-neutral-500);
+    background: var(--dgm-neutral-50);
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* Governance / Security — solid violet */
+.dgm-section-governance {
+    border: 2px solid var(--dgm-violet);
+    background: rgba(124, 58, 237, 0.03);
+}
+
+/* Storage / Data — solid cyan */
+.dgm-section-storage {
+    border: 2px solid var(--dgm-cyan);
+    background: rgba(8, 145, 178, 0.05);
+}
+
+/* Legacy / Warning — dashed rose */
+.dgm-section-legacy {
+    border: 2px dashed var(--dgm-rose);
+    background: rgba(225, 29, 72, 0.04);
+}
+
+/* ===================================================================
+   Section Labels
+   =================================================================== */
+.dgm-section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dgm-neutral-800);
+    margin-bottom: 0.25rem;
+}
+
+/* ===================================================================
+   Node Types
+   =================================================================== */
+.dgm-node {
+    background: white;
+    border: 1px solid var(--dgm-neutral-200);
+    border-radius: var(--radius-diagram);
+    padding: 0.6rem 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    color: var(--dgm-neutral-800);
+    box-shadow: var(--shadow-diagram);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+}
+
+.dgm-node-label {
+    font-weight: 500;
+}
+
+.dgm-node-tech {
+    font-size: 0.6rem;
+    color: var(--dgm-neutral-500);
+    font-weight: 400;
+}
+
+/* Cylinder (database) shape */
+.dgm-node-cylinder {
+    border-radius: var(--radius-cylinder-top) var(--radius-cylinder-top)
+                   48% 48%;
+    min-height: 4.5rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--dgm-blue);
+    background: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Highlighted node */
+.dgm-node-highlight {
+    background: var(--dgm-highlight-bg);
+    border-color: var(--dgm-highlight-border);
+}
+
+/* Platform service node (compact) */
+.dgm-node-service {
+    border-color: var(--dgm-neutral-300);
+    background: var(--dgm-neutral-100);
+    font-size: 0.65rem;
+    padding: 0.5rem 0.6rem;
+    min-width: 7rem;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ===================================================================
+   Layer Bands (for internal anatomy, NIST inheritance)
+   =================================================================== */
+.dgm-layer-band {
+    padding: 0.75rem;
+    border-radius: var(--radius-diagram);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.dgm-layer-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.dgm-layer-storage {
+    background: rgba(8, 145, 178, 0.06);
+    border: 1px solid rgba(8, 145, 178, 0.3);
+}
+
+.dgm-layer-interface {
+    background: rgba(37, 99, 235, 0.04);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.dgm-layer-governance {
+    background: rgba(124, 58, 237, 0.04);
+    border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+.dgm-layer-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 100%;
+    text-align: left;
+    color: var(--dgm-neutral-800);
+}
+
+/* ===================================================================
+   Timeline (for flowcharts)
+   =================================================================== */
+.dgm-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.dgm-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.875rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 2px;
+    background: var(--dgm-neutral-300);
+}
+
+.dgm-timeline-step {
+    position: relative;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.dgm-timeline-step::before {
+    content: attr(data-step);
+    position: absolute;
+    left: -2.5rem;
+    top: 0.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: var(--dgm-blue);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===================================================================
+   Layers (for NIST inheritance — bottom-to-top bands)
+   =================================================================== */
+.dgm-layer {
+    border-radius: var(--radius-diagram);
+    padding: 1rem;
+    text-align: center;
+}
+
+.dgm-layer-bottom {
+    background: var(--dgm-neutral-50);
+    border: 2px solid var(--dgm-neutral-200);
+}
+
+.dgm-layer-middle {
+    background: rgba(124, 58, 237, 0.04);
+    border: 2px solid var(--dgm-violet);
+}
+
+.dgm-layer-top {
+    background: rgba(37, 99, 235, 0.04);
+    border: 2px solid var(--dgm-blue);
+}
+
+.dgm-layer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--dgm-neutral-800);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+/* ===================================================================
+   Grid cards (domain map, principle quadrants)
+   =================================================================== */
+.dgm-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.dgm-grid-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+.dgm-grid-4col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.75rem; }
+
+.dgm-card {
+    background: white;
+    border: 1px solid var(--dgm-neutral-200);
+    border-radius: var(--radius-diagram);
+    padding: 0.75rem;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    color: var(--dgm-neutral-800);
+    box-shadow: var(--shadow-diagram);
+}
+
+.dgm-card-highlight {
+    border: 2px solid var(--dgm-blue);
+    background: var(--dgm-highlight-bg);
+}
+
+.dgm-card-label {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--dgm-neutral-800);
+    margin-bottom: 0.25rem;
+}
+
+.dgm-card-cite {
+    font-size: 0.6rem;
+    color: var(--dgm-neutral-500);
+    font-weight: 400;
+}
+
+/* ===================================================================
+   Center / Hub node
+   =================================================================== */
+.dgm-hub {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    border: 3px solid var(--dgm-blue);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--dgm-blue);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    margin: 0 auto;
+}

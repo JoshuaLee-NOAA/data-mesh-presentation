@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 5 — NIST 800-53 Control Inheritance Model</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 1rem; }
+    .nist-icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .nist-icon-sm { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .nist-container {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .nist-layer {
+      border-radius: var(--radius-diagram);
+      padding: 0.75rem 1rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+
+    .nist-layer-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.04em; text-align: center;
+    }
+
+    .nist-layer-row {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: nowrap;
+    }
+
+    .nist-card {
+      background: white; border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram); padding: 0.5rem 0.6rem;
+      display: flex; flex-direction: column; gap: 0.15rem;
+      box-shadow: var(--shadow-diagram); flex-shrink: 0;
+      min-height: 60px; justify-content: center;
+    }
+    .nist-card-id {
+      font-size: 0.55rem; font-weight: 700; color: var(--dgm-neutral-800);
+    }
+    .nist-card-desc {
+      font-size: 0.52rem; color: var(--dgm-neutral-500); line-height: 1.25;
+    }
+    .nist-card-tech {
+      display: flex; align-items: center; gap: 0.2rem;
+      font-size: 0.48rem; color: var(--dgm-neutral-500); font-weight: 400;
+    }
+
+    /* Layer 1 — FedRAMP (neutral gray, foundation) */
+    .nist-layer-1 {
+      background: var(--dgm-neutral-50);
+      border: 2px solid var(--dgm-neutral-200);
+    }
+    .nist-layer-1 .nist-layer-label { color: var(--dgm-neutral-500); }
+    .nist-layer-1 .nist-card { width: 200px; }
+    .nist-layer-1 .nist-card-id { color: var(--dgm-neutral-500); }
+
+    /* Layer 2 — Platform ATO (violet) */
+    .nist-layer-2 {
+      background: rgba(124, 58, 237, 0.04);
+      border: 2px solid var(--dgm-violet);
+    }
+    .nist-layer-2 .nist-layer-label { color: var(--dgm-violet); }
+    .nist-layer-2 .nist-card { width: 150px; }
+
+    /* Layer 3 — Data Product ATO (blue) */
+    .nist-layer-3 {
+      background: rgba(37, 99, 235, 0.04);
+      border: 2px solid var(--dgm-blue);
+    }
+    .nist-layer-3 .nist-layer-label { color: var(--dgm-blue); }
+    .nist-layer-3 .nist-card { width: 200px; }
+
+    .nist-inherit {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem; padding: 0.3rem 0;
+    }
+    .nist-inherit-line {
+      height: 1.5px; background: var(--dgm-neutral-300); flex: 1;
+    }
+    .nist-inherit-label {
+      font-size: 0.55rem; font-weight: 600; color: var(--dgm-neutral-500);
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .nist-annotation {
+      font-size: 0.6rem; color: var(--dgm-neutral-500); text-align: center;
+      font-style: italic; margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 5 — NIST 800-53 Control Inheritance Model</div>
+
+  <div class="nist-container">
+
+    <!-- LAYER 3 (top): Data Product ATO — System-Specific Controls -->
+    <div class="nist-layer nist-layer-3">
+      <div class="nist-layer-label">Data Product ATO — System-Specific Controls</div>
+      <div class="nist-layer-row">
+        <div class="nist-card">
+          <div class="nist-card-id">Product-Level Access Approvals</div>
+          <div class="nist-card-desc">Data product owner grants consumer access per data contract</div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">Schema Definitions</div>
+          <div class="nist-card-desc">Versioned schemas managed by DPO within platform guardrails</div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">SLO Configuration</div>
+          <div class="nist-card-desc">Completeness, accuracy, freshness thresholds per product</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inherits arrow -->
+    <div class="nist-inherit">
+      <div class="nist-inherit-line"></div>
+      <div class="nist-inherit-label">▲ Inherits ▲</div>
+      <div class="nist-inherit-line"></div>
+    </div>
+
+    <!-- LAYER 2 (middle): Platform ATO — Hybrid Controls -->
+    <div class="nist-layer nist-layer-2">
+      <div class="nist-layer-label">Platform ATO — Hybrid Controls</div>
+      <div class="nist-layer-row">
+        <div class="nist-card">
+          <div class="nist-card-id">AC-3</div>
+          <div class="nist-card-desc">Access Enforcement</div>
+          <div class="nist-card-tech">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="nist-icon-sm" alt="">
+            IAM
+          </div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">AU-2</div>
+          <div class="nist-card-desc">Audit Logging</div>
+          <div class="nist-card-tech">
+            <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="nist-icon-sm" alt="">
+            Cloud Logging
+          </div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">SC-7</div>
+          <div class="nist-card-desc">Boundary Protection</div>
+          <div class="nist-card-tech">
+            <img src="../Category Icons/Networking/SVG/Networking-512-color-rgb.svg" class="nist-icon-sm" alt="">
+            VPC SC
+          </div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">SI-10</div>
+          <div class="nist-card-desc">Input Validation</div>
+          <div class="nist-card-tech">
+            <img src="../Category Icons/Data Analytics/SVG/DataAnalytics-512-color.svg" class="nist-icon-sm" alt="">
+            Dataplex
+          </div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">SC-13</div>
+          <div class="nist-card-desc">Crypto Protection</div>
+          <div class="nist-card-tech">
+            <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="nist-icon-sm" alt="">
+            KMS
+          </div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">RA-5</div>
+          <div class="nist-card-desc">Vuln Monitoring</div>
+          <div class="nist-card-tech">
+            <img src="../Unique Icons/Security Command Center/SVG/SecurityCommandCenter-512-color.svg" class="nist-icon-sm" alt="">
+            SCC
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inherits arrow -->
+    <div class="nist-inherit">
+      <div class="nist-inherit-line"></div>
+      <div class="nist-inherit-label">▲ Inherits ▲</div>
+      <div class="nist-inherit-line"></div>
+    </div>
+
+    <!-- LAYER 1 (bottom): FedRAMP Common Controls -->
+    <div class="nist-layer nist-layer-1">
+      <div class="nist-layer-label">FedRAMP Common Controls</div>
+      <div class="nist-layer-row">
+        <div class="nist-card">
+          <div class="nist-card-id">Physical Security</div>
+          <div class="nist-card-desc">Data center access controls, 24/7 monitoring</div>
+          <div class="nist-card-tech">
+            <img src="../Unique Icons/Security Command Center/SVG/SecurityCommandCenter-512-color.svg" class="nist-icon-sm" alt="">
+            FedRAMP Auth Infrastructure
+          </div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">Hypervisor Isolation</div>
+          <div class="nist-card-desc">Workload separation, tenant isolation</div>
+        </div>
+        <div class="nist-card">
+          <div class="nist-card-id">Network Segmentation</div>
+          <div class="nist-card-desc">VPC fabric, backbone routing, DDoS protection</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotation -->
+    <div class="nist-annotation">
+      60–70% of controls inherited by data product through platform common controls
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 7 — Domain-Separated Resource Hierarchy (Model B)</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 1rem; }
+
+    .ds-container {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto 1fr 1fr auto; gap: 0.5rem;
+      align-items: stretch;
+    }
+
+    .ds-org-header {
+      background: var(--dgm-blue); color: white; text-align: center;
+      padding: 0.5rem; border-radius: var(--radius-diagram);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em;
+      grid-column: 1 / -1;
+    }
+
+    .ds-col {
+      border-radius: var(--radius-diagram);
+      display: flex; flex-direction: column; min-width: 0; min-height: 0;
+    }
+    .ds-col-header {
+      text-align: center; padding: 0.35rem 0.3rem;
+      font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border-radius: calc(var(--radius-diagram) - 2px) calc(var(--radius-diagram) - 2px) 0 0;
+    }
+    .ds-col-body {
+      padding: 0.35rem; display: flex; flex-direction: column; gap: 0.3rem;
+      border-radius: 0 0 calc(var(--radius-diagram) - 2px) calc(var(--radius-diagram) - 2px);
+      flex: 1;
+    }
+
+    .ds-item {
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0.25rem 0.35rem; border-radius: 3px;
+      font-size: 0.52rem; line-height: 1.2;
+      background: white; border: 1px solid var(--dgm-neutral-200);
+      min-height: 1.6rem;
+    }
+    .ds-badge {
+      width: 1.2rem; height: 0.95rem; border-radius: 2px;
+      font-size: 0.45rem; font-weight: 700; text-align: center; line-height: 0.95rem;
+      flex-shrink: 0; letter-spacing: -0.01em;
+    }
+    .ds-badge-dp { background: var(--dgm-blue); color: white; }
+    .ds-badge-pl { background: var(--dgm-cyan); color: white; }
+    .ds-badge-ap { background: var(--dgm-emerald); color: white; }
+    .ds-badge-sc { background: var(--dgm-violet); color: white; }
+    .ds-badge-hp { background: var(--dgm-amber); color: white; }
+    .ds-badge-ix { background: var(--dgm-neutral-500); color: white; }
+
+    .ds-item-label { font-weight: 600; color: var(--dgm-neutral-800); }
+    .ds-item-tech { font-size: 0.47rem; color: var(--dgm-neutral-500); margin-left: auto; }
+
+    .ds-col-dp { border: 1.5px solid var(--dgm-blue); }
+    .ds-col-dp .ds-col-header { background: var(--dgm-blue); color: white; }
+    .ds-col-dp .ds-col-body { background: rgba(37,99,235,0.03); }
+
+    .ds-col-pl { border: 1.5px solid var(--dgm-cyan); }
+    .ds-col-pl .ds-col-header { background: var(--dgm-cyan); color: white; }
+    .ds-col-pl .ds-col-body { background: rgba(8,145,178,0.03); }
+
+    .ds-col-ap { border: 1.5px solid var(--dgm-emerald); }
+    .ds-col-ap .ds-col-header { background: var(--dgm-emerald); color: white; }
+    .ds-col-ap .ds-col-body { background: rgba(5,150,105,0.03); }
+
+    .ds-col-sc { border: 1.5px solid var(--dgm-violet); }
+    .ds-col-sc .ds-col-header { background: var(--dgm-violet); color: white; }
+    .ds-col-sc .ds-col-body { background: rgba(124,58,237,0.03); }
+
+    .ds-col-hp { border: 1.5px solid var(--dgm-amber); }
+    .ds-col-hp .ds-col-header { background: var(--dgm-amber); color: white; }
+    .ds-col-hp .ds-col-body { background: rgba(217,119,6,0.03); }
+
+    .ds-col-ix { border: 1.5px solid var(--dgm-neutral-500); }
+    .ds-col-ix .ds-col-header { background: var(--dgm-neutral-500); color: white; }
+    .ds-col-ix .ds-col-body { background: var(--dgm-neutral-50); }
+
+    .ds-col-security { border: 1.5px solid var(--dgm-violet); }
+    .ds-col-security .ds-col-header { background: var(--dgm-violet); color: white; }
+    .ds-col-security .ds-col-body { background: rgba(124,58,237,0.03); }
+
+    .ds-annotation {
+      font-size: 0.55rem; color: var(--dgm-amber); text-align: center;
+      font-weight: 600; font-style: italic;
+      padding: 0.4rem; border-top: 1px solid var(--dgm-neutral-200);
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 7 — Domain-Separated Resource Hierarchy (Model B)</div>
+
+  <div class="ds-container">
+
+    <div class="ds-org-header">NOAA Fisheries GCP Organization</div>
+
+      <div class="ds-col ds-col-dp">
+        <div class="ds-col-header">Domains</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-dp">DP</div><span class="ds-item-label">domain-1 ★</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-dp">DP</div><span class="ds-item-label">domain-2</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-dp">DP</div><span class="ds-item-label">(6 more)</span></div>
+          <div style="font-size:0.45rem;color:var(--dgm-neutral-500);text-align:center;padding:0.15rem 0;">Data products only</div>
+        </div>
+      </div>
+
+      <div class="ds-col ds-col-pl">
+        <div class="ds-col-header">Data Integration</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-pl">PL</div><span class="ds-item-label">pipeline-1</span><span class="ds-item-tech">Dataflow</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-pl">PL</div><span class="ds-item-label">pipeline-2</span><span class="ds-item-tech">Dataflow</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-pl">PL</div><span class="ds-item-label">pipeline-3</span><span class="ds-item-tech">Composer</span></div>
+        </div>
+      </div>
+
+      <div class="ds-col ds-col-ap">
+        <div class="ds-col-header">Applications</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-ap">AP</div><span class="ds-item-label">app-1</span><span class="ds-item-tech">Cloud Run</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-ap">AP</div><span class="ds-item-label">app-2</span><span class="ds-item-tech">GKE</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-ap">AP</div><span class="ds-item-label">app-3</span><span class="ds-item-tech">App Engine</span></div>
+        </div>
+      </div>
+
+      <div class="ds-col ds-col-sc">
+        <div class="ds-col-header">Scientific Computing</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-sc">SC</div><span class="ds-item-label">science-env-1</span><span class="ds-item-tech">Vertex AI</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-sc">SC</div><span class="ds-item-label">science-env-2</span><span class="ds-item-tech">Vertex AI</span></div>
+        </div>
+      </div>
+
+      <div class="ds-col ds-col-hp">
+        <div class="ds-col-header">HPC & AI/ML</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-hp">HP</div><span class="ds-item-label">hpc-workload-1</span><span class="ds-item-tech">Batch, GPU</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-hp">HP</div><span class="ds-item-label">hpc-workload-2</span><span class="ds-item-tech">GPU, TPU</span></div>
+        </div>
+      </div>
+
+      <div class="ds-col ds-col-ix">
+        <div class="ds-col-header">Platform</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-ix">IX</div><span class="ds-item-label">shared-vpc</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-ix">IX</div><span class="ds-item-label">cloud-interconnect</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-ix">IX</div><span class="ds-item-label">iam-kms</span></div>
+        </div>
+      </div>
+
+      <div class="ds-col ds-col-security">
+        <div class="ds-col-header">Security</div>
+        <div class="ds-col-body">
+          <div class="ds-item"><div class="ds-badge ds-badge-ix">IX</div><span class="ds-item-label">scc</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-ix">IX</div><span class="ds-item-label">cloud-logging</span></div>
+          <div class="ds-item"><div class="ds-badge ds-badge-ix">IX</div><span class="ds-item-label">audit</span></div>
+        </div>
+      </div>
+
+    <div class="ds-annotation">
+      ⚡ Cross-folder IAM policies required for integration — Scientific Computing → Domains, Applications → Domains
+    </div>
+
+  </div>
+
+</body>
+</html>

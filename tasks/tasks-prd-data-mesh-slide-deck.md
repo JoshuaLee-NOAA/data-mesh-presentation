@@ -1,0 +1,101 @@
+## Relevant Files
+
+- `app/globals.css` — Tailwind v4 directives, Georgetown color tokens, scroll-snap styles, custom utilities
+- `app/layout.tsx` — Root layout with Playfair Display + Inter fonts, metadata for Vercel deployment
+- `app/page.tsx` — Main page: scroll-snap container, Intersection Observer, all slides
+- `app/design-system/page.tsx` — Design system showcase page (colors, typography, components)
+- `app/components/TopNav.tsx` — Sticky navigation bar: section anchors, slide counter, progress bar
+- `app/components/SlideArrows.tsx` — Up/down arrow buttons with first/last slide logic
+- `app/components/SlideWrapper.tsx` — Individual slide wrapper (h-screen, scroll-snap-align)
+- `app/components/ui/Card.tsx` — Card variants (default, highlight, callout, risk)
+- `app/components/ui/Pill.tsx` — Badge/pill component
+- `app/components/ui/SectionLabel.tsx` — Gold uppercase section label
+- `app/components/layouts/TwoColumn.tsx` — 55/45 two-column layout
+- `app/components/layouts/CardGrid.tsx` — Configurable grid (2x2, 3x2, 2x3)
+- `app/components/layouts/Centered.tsx` — Vertically/horizontally centered content
+- `app/components/layouts/Timeline.tsx` — Vertical timeline layout
+- `app/components/slides/Slide01Title.tsx` through `Slide25ThankYou.tsx` — 25 slide content components
+- `app/components/diagrams/CurrentStateFragmentation.tsx` — Slide 2 diagram
+- `app/components/diagrams/DataLandscape.tsx` — Slide 3 diagram
+- `app/components/diagrams/CentralizedVsDomainOwnership.tsx` — Slide 7 diagram
+- `app/components/diagrams/DomainDecompositionMap.tsx` — Slide 8 diagram
+- `app/components/diagrams/DataProductAnatomy.tsx` — Slide 9 diagram
+- `app/components/diagrams/EMDataProductFlow.tsx` — Slide 10 diagram
+- `app/components/diagrams/PlatformServiceTiers.tsx` — Slide 11 diagram
+- `app/components/diagrams/GCPLandingZone.tsx` — Slide 12 diagram
+- `app/components/diagrams/ThreeTierGovernance.tsx` — Slide 13 diagram
+- `app/components/diagrams/NISTControlInheritance.tsx` — Slide 14 diagram
+- `app/components/diagrams/OneProductThreeViews.tsx` — Slide 15 diagram
+- `app/components/diagrams/FourPrinciplesIntegration.tsx` — Slide 16 diagram
+- `app/components/diagrams/DomainCoupledVsSeparated.tsx` — Slide 17 diagram
+- `app/components/diagrams/MigrationPatterns.tsx` — Slide 19 diagram
+- `app/components/diagrams/MigrationPhases.tsx` — Slide 20 diagram
+- `app/components/diagrams/FederatedNOAAEnterprise.tsx` — Slide 23 diagram
+- `lib/useActiveSlide.ts` — Intersection Observer hook for slide detection
+- `data/slides.ts` — Slide metadata (titles, section anchors, content text)
+
+### Notes
+
+- All files use TypeScript. Components are built with Tailwind CSS v4 utility classes.
+- Diagram components use HTML + CSS (Tailwind) + thin SVG overlays for arrows/connections. No external diagram libraries.
+- Fonts: Playfair Display (Google Font) for headlines, Inter (Google Font) for body.
+- Deployment target: Vercel.
+
+## Tasks
+
+- [x] 1.0 Design System Foundation
+  - [x] 1.1 Update `globals.css` with Georgetown color theme tokens, font families, scroll-snap utilities
+  - [x] 1.2 Update `layout.tsx` with Playfair Display + Inter font loading, page metadata for Vercel
+  - [x] 1.3 Create `/design-system` showcase page displaying color palette swatches, typography scale, and component samples
+- [x] 2.0 Layout Primitives & UI Components
+  - [x] 2.1 Build `Card.tsx` — variants: default (Blue border), highlight (Blue border + light blue bg), callout (Light Blue left border), risk (rose-red left accent)
+  - [x] 2.2 Build `Pill.tsx` — badge/pill component (Gold section labels, Blue stat pills)
+  - [x] 2.3 Build `SectionLabel.tsx` — Gold uppercase tracking-widest section label
+  - [x] 2.4 Build `TwoColumn.tsx` — 55/45 responsive two-column layout
+  - [x] 2.5 Build `CardGrid.tsx` — configurable grid layout (2x2, 3x2, 2x3 props)
+  - [x] 2.6 Build `Centered.tsx` — vertically and horizontally centered content wrapper
+  - [x] 2.7 Build `Timeline.tsx` — vertical timeline with numbered steps and connecting line
+- [x] 3.0 Navigation Components
+  - [x] 3.1 Build `TopNav.tsx` — sticky bar, section anchors (Problem | Evolution | Principles | Architecture | Migration | Tradeoffs | Future), slide counter (e.g., "5 / 25"), progress bar, active section highlighting via Intersection Observer
+  - [x] 3.2 Build `SlideArrows.tsx` — up/down arrow buttons, context-aware visibility (first slide: down only; last slide: up only; all others: both), Gold styling with hover animation
+  - [x] 3.3 Create `useActiveSlide.ts` hook — Intersection Observer that returns current slide index, total slides, active section
+- [x] 4.0 Main Page Scaffold
+  - [x] 4.1 Build `SlideWrapper.tsx` — h-screen, scroll-snap-align: start, children slot
+  - [x] 4.2 Build `page.tsx` — scroll-snap container (snap-y mandatory), renders TopNav + all slides + SlideArrows, keyboards nav (up/down/left/right), Slide 1 fully built with avatar + title + subtitle + author
+  - [x] 4.3 Add Vercel configuration (`vercel.json` or equivalent)
+  - [x] 4.4 `npm run dev` at http://localhost:3000 — working scroll-snap slideshow with nav, 25 placeholder slides ready for content
+- [ ] 5.0 Slide-by-Slide Build
+  - [ ] 5.1 Slide 1: Title (Centered layout — avatar with Gold ring, title Blue Playfair, subtitle Light Blue, author Gray, Gold accent line)
+  - [ ] 5.2 Slide 2: The Problem (TwoColumn layout + CurrentStateFragmentation diagram — silo cards, dashed Gold SVG arrows, scientist icon, callout text)
+  - [ ] 5.3 Slide 3: Data Landscape (TwoColumn layout + DataLandscape diagram — producer icons, fragmented middle, consumer icons, weak connecting arrows)
+  - [ ] 5.4 Slide 4: Legal & Regulatory Mandates (2x2 CardGrid — MSA NS2, Sec.402(b) confidentiality w/ Gold lock, NIST SP 800-53, Evidence Act/OPEN Govt Data. Tension line annotation)
+  - [ ] 5.5 Slide 5: Evolution of Big Data Architectures (3-column Timeline — Data Warehouse 1990s, Data Lake 2010s, Data Mesh 2020s. Animated progression on scroll)
+  - [ ] 5.6 Slide 6: Conway's Law & DDD (Centered layout — large Conway quote, 3 small cards: Conway/Evans/Parnas forming triangle around "Domain-Oriented Decomposition")
+  - [ ] 5.7 Slide 7: Principle 1 — Domain Ownership (TwoColumn + CentralizedVsDomainOwnership diagram — Before/After panels, converging→parallel arrows)
+  - [ ] 5.8 Slide 8: Domain Decomposition for NOAA Fisheries (Diagram-only — DomainDecompositionMap: 8 domain cards in 4x2 grid, Blue headers, Gold MSA cites, 3 shared reference products below, SVG connection lines, Fishery Monitoring highlighted)
+  - [ ] 5.9 Slide 9: Principle 2 — Data as a Product (TwoColumn + DataProductAnatomy diagram — bounded box with 6 characteristics, Data Contract box below, Gold arrow)
+  - [ ] 5.10 Slide 10: EM Case Study (Diagram-only — EMDataProductFlow: upstream amber sources → Blue Fishery Monitoring domain → green consumer arrows, violet governance enforcement layer below)
+  - [ ] 5.11 Slide 11: Principle 3 — Self-Serve Platform (Diagram-only — PlatformServiceTiers: 3 horizontal bands Foundation/Data/DevEx, domain team icon left)
+  - [ ] 5.12 Slide 12: GCP Landing Zone Architecture (Diagram-only — GCPLandingZone: top-down org → 5 folder columns, 8 domain projects, VPC hub, Shared Services, Georgetown palette)
+  - [ ] 5.13 Slide 13: Principle 4 — Federated Governance (Diagram — ThreeTierGovernance pyramid: Global→Domain→Product, enforcement engine arrows upward)
+  - [ ] 5.14 Slide 14: NIST 800-53 & Continuous Authorization (Diagram — NISTControlInheritance: 3 stacked layers FedRAMP/Platform ATO/Data Product ATO, 6 control mappings, 60-70% inherited)
+  - [ ] 5.15 Slide 15: EM Confidentiality (Diagram — OneProductThreeViews: center EM product, 3 consumer panels aggregated/filtered/full views, IAM condition labels, DLP shield)
+  - [ ] 5.16 Slide 16: Four Principles Integration (Diagram — FourPrinciplesIntegration: 2x2 quadrant, center hub "EM Data Product," bidirectional tension lines)
+  - [ ] 5.17 Slide 17: Broader Cloud Estate (Comparison split + DomainCoupledVsSeparated diagram — side-by-side resource hierarchy panels, NOAA Fisheries highlighted on Domain-Separated)
+  - [ ] 5.18 Slide 18: Migration Guiding Principles (Section opener — bold headline, 4 principle cards: Evolutionary, Value-First, Legacy Coexistence, Learn & Adapt)
+  - [ ] 5.19 Slide 19: Migration Patterns (Diagram — MigrationPatterns: 3 panels ACL/Strangler Fig/Parallel Run, consumer perspective callout)
+  - [ ] 5.20 Slide 20: Order of Operations (Timeline + MigrationPhases diagram — 5-step vertical timeline, parallel Organizational Readiness track, "Enables" arrows)
+  - [ ] 5.21 Slide 21: Organizational Change Management (Split layout — Drucker quote top, 4 cards: Sponsorship, Engagement, Training, Communities)
+  - [ ] 5.22 Slide 22: Tradeoffs & Risks (3x2 CardGrid — 6 risk cards, Blue header, 1-line summary, Gold mitigation, rose-red left accent)
+  - [ ] 5.23 Slide 23: Scaling to NOAA Enterprise (Diagram — FederatedNOAAEnterprise: 5 line office cards, 4 federation elements, cloud platform icons)
+  - [ ] 5.24 Slide 24: Conclusion & Contributions (3x2 CardGrid — 6 contribution cards, RQ checkmark list with Gold checks)
+  - [ ] 5.25 Slide 25: Future Directions + Thank You (TwoColumn — 3 Gold-bullet future items, Public Data statement, centered "Thank You" + author, up arrow only)
+- [ ] 6.0 Final Integration & Deployment
+  - [ ] 6.1 Verify all 25 slides render correctly on main page with scroll-snap
+  - [ ] 6.2 Test responsive behavior at 320px, 768px, 1024px, 1440px
+  - [ ] 6.3 Verify TopNav section anchors, slide counter, and progress bar update correctly
+  - [ ] 6.4 Verify SlideArrows show/hide correctly on first, intermediate, and last slides
+  - [ ] 6.5 Verify keyboard arrow keys navigate slides
+  - [ ] 6.6 Run `npm run build` — confirm zero errors
+  - [ ] 6.7 Deploy to Vercel
+  - [ ] 6.8 Test production URL on desktop and mobile

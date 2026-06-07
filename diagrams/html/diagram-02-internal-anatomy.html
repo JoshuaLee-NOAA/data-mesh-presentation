@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 2 — Internal Anatomy of the EM Data Product</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 0.5rem; }
+    .dgm-node-icon { width: 24px; height: 24px; flex-shrink: 0; }
+    .dgm-node-icon-sm { width: 18px; height: 18px; flex-shrink: 0; }
+    .dgm-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* Layer bands */
+    .dgm-layer-band {
+      padding: 0.75rem;
+      border-radius: var(--radius-diagram);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .dgm-layer-row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .dgm-layer-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      width: 100%;
+      text-align: left;
+      color: var(--dgm-neutral-800);
+    }
+    .dgm-layer-storage {
+      background: rgba(8, 145, 178, 0.06);
+      border: 1px solid rgba(8, 145, 178, 0.3);
+    }
+    .dgm-layer-interface {
+      background: rgba(37, 99, 235, 0.04);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+    }
+    .dgm-layer-governance {
+      background: rgba(124, 58, 237, 0.04);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+    }
+
+    /* Storage cards — uniform, single-row */
+    .anat-storage-card {
+      background: white;
+      border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 0.5rem 0.55rem;
+      box-shadow: var(--shadow-diagram);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      width: 145px;
+      flex: 0 0 145px;
+    }
+    .anat-storage-card .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .anat-storage-card .card-title {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      line-height: 1.2;
+    }
+    .anat-storage-card .card-desc {
+      font-size: 0.5rem;
+      color: var(--dgm-neutral-500);
+      line-height: 1.3;
+    }
+    .anat-storage-card .card-tech {
+      font-size: 0.48rem;
+      color: var(--dgm-neutral-400);
+      font-weight: 400;
+      font-style: italic;
+      margin-top: auto;
+    }
+
+    /* Interface cards (wider) */
+    .anat-interface-card {
+      background: white;
+      border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 0.5rem 0.75rem;
+      box-shadow: var(--shadow-diagram);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 220px;
+      flex-shrink: 0;
+    }
+    .anat-interface-card .card-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--dgm-neutral-800);
+    }
+    .anat-interface-card .card-tech {
+      font-size: 0.5rem;
+      color: var(--dgm-neutral-500);
+      font-weight: 400;
+    }
+
+    /* Governance cards */
+    .anat-gov-card {
+      background: white;
+      border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 0.5rem 0.75rem;
+      box-shadow: var(--shadow-diagram);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      width: 200px;
+      flex-shrink: 0;
+    }
+    .anat-gov-card .card-title {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+    }
+    .anat-gov-card .card-desc {
+      font-size: 0.5rem;
+      color: var(--dgm-neutral-500);
+      line-height: 1.25;
+    }
+
+    /* Outer boundary */
+    .anat-boundary {
+      border: 2px solid var(--dgm-blue);
+      border-radius: var(--radius-diagram);
+      padding: 1rem;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .anat-boundary-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--dgm-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Workflow annotation */
+    .anat-workflow {
+      display: flex;
+      gap: 0.3rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.48rem;
+      color: var(--dgm-neutral-400);
+      font-style: italic;
+      margin-top: 0.15rem;
+    }
+    .anat-workflow-arrow {
+      color: var(--dgm-neutral-300);
+      font-style: normal;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 2 — Internal Anatomy of the EM Data Product</div>
+  <div class="dgm-container">
+
+    <!-- Solid outer boundary: EM Data Product -->
+    <div class="anat-boundary">
+      <div class="anat-boundary-label">EM Data Product</div>
+
+      <!-- Storage Layer — 6 components in 2 rows -->
+      <div class="dgm-layer-band dgm-layer-storage">
+        <div class="dgm-layer-title">Storage Layer</div>
+
+        <!-- Row 1: All 6 components -->
+        <div class="dgm-layer-row">
+          <div class="anat-storage-card">
+            <div class="card-header">
+              <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon-sm" alt="BigQuery">
+              <span class="card-title">Trip Metadata</span>
+            </div>
+            <div class="card-desc">Vessel ID, departure/return timestamps, region, fishery type, gear configuration</div>
+          </div>
+          <div class="anat-storage-card">
+            <div class="card-header">
+              <img src="../Unique Icons/Cloud Storage/SVG/Cloud_Storage-512-color.svg" class="dgm-node-icon-sm" alt="Cloud Storage">
+              <span class="card-title">Raw Video & Sensor Data</span>
+            </div>
+            <div class="card-desc">Camera footage, gear telemetry, GPS tracks, hydraulic sensor readings</div>
+          </div>
+          <div class="anat-storage-card">
+            <div class="card-header">
+              <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon-sm" alt="BigQuery">
+              <span class="card-title">Reviewer Notings</span>
+            </div>
+            <div class="card-desc">Human reviewer annotations, video segment indices, initial species observations</div>
+          </div>
+          <div class="anat-storage-card">
+            <div class="card-header">
+              <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon-sm" alt="BigQuery">
+              <span class="card-title">Logbook Reconciliation</span>
+            </div>
+            <div class="card-desc">Captain-reported catch cross-referenced with EM observations, discrepancy flags</div>
+          </div>
+          <div class="anat-storage-card">
+            <div class="card-header">
+              <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon-sm" alt="BigQuery">
+              <span class="card-title">Species Identification</span>
+            </div>
+            <div class="card-desc">Family/species-level IDs with confidence ratings, validated against authoritative AFS taxonomy</div>
+          </div>
+          <div class="anat-storage-card">
+            <div class="card-header">
+              <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon-sm" alt="BigQuery">
+              <span class="card-title">Trip Report (Published)</span>
+            </div>
+            <div class="card-desc">Unified, quality-verified output: catch composition, discards, protected species interactions</div>
+          </div>
+        </div>
+
+        <!-- Workflow annotation -->
+        <div class="anat-workflow">
+          Capture & Ingestion <span class="anat-workflow-arrow">→</span> Processing & Reconciliation <span class="anat-workflow-arrow">→</span> Publication
+        </div>
+      </div>
+
+      <!-- Interface Layer -->
+      <div class="dgm-layer-band dgm-layer-interface">
+        <div class="dgm-layer-title">Interface Layer</div>
+        <div class="dgm-layer-row">
+          <div class="anat-interface-card">
+            <img src="../Unique Icons/Cloud Run/SVG/CloudRun-512-color-rgb.svg" class="dgm-node-icon" alt="Cloud Run">
+            <div>
+              <div class="card-label">REST API (Read)</div>
+              <div class="card-tech">Cloud Run · Programmatic Access</div>
+            </div>
+          </div>
+          <div class="anat-interface-card">
+            <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon" alt="BigQuery">
+            <div>
+              <div class="card-label">SQL Query Interface</div>
+              <div class="card-tech">BigQuery · Analytical Access</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Governance Layer -->
+      <div class="dgm-layer-band dgm-layer-governance">
+        <div class="dgm-layer-title">Governance Layer</div>
+        <div class="dgm-layer-row">
+          <div class="anat-gov-card">
+            <div class="card-title">Data Contract</div>
+            <div class="card-desc">Schema v1.2, SLOs, Version Policy, Access Rules</div>
+            <div class="card-tech" style="font-size:0.48rem;color:var(--dgm-neutral-400);font-style:italic;">Data Catalog</div>
+          </div>
+          <div class="anat-gov-card">
+            <div class="card-title">Quality SLOs</div>
+            <div class="card-desc">Completeness >99%, Accuracy >95% family / >90% species</div>
+            <div class="card-tech" style="font-size:0.48rem;color:var(--dgm-neutral-400);font-style:italic;">Dataplex</div>
+          </div>
+          <div class="anat-gov-card">
+            <div class="card-title">Row-Level Access</div>
+            <div class="card-desc">Confidential vessel data restricted per MSA §402(b)</div>
+            <div class="card-tech" style="font-size:0.48rem;color:var(--dgm-neutral-400);font-style:italic;">Cloud IAM</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

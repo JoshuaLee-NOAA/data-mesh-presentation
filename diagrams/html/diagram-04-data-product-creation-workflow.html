@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 4 — Data Product Creation Workflow</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .dgm-node-icon { width: 24px; height: 24px; flex-shrink: 0; }
+    .dgm-node-icon-sm { width: 18px; height: 18px; flex-shrink: 0; }
+    .dgm-timeline-step-node {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: white; border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram); padding: 0.5rem 0.7rem;
+      font-size: 0.65rem; line-height: 1.3; color: var(--dgm-neutral-800);
+      box-shadow: var(--shadow-diagram);
+    }
+    .dgm-parallel-row {
+      display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center;
+    }
+    .dgm-parallel-step {
+      display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+      text-align: center; font-size: 0.55rem; color: var(--dgm-neutral-500);
+      background: white; border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram); padding: 0.4rem 0.5rem;
+      box-shadow: var(--shadow-diagram); min-width: 72px;
+    }
+    .dgm-parallel-step .step-num {
+      font-weight: 700; font-size: 0.7rem; color: var(--dgm-blue);
+    }
+    .dgm-group-dashed-blue {
+      border: 2px dashed var(--dgm-blue); border-radius: var(--radius-diagram);
+      padding: 0.75rem; background: rgba(37, 99, 235, 0.03);
+    }
+    .dgm-group-dashed-violet {
+      border: 2px dashed var(--dgm-violet); border-radius: var(--radius-diagram);
+      padding: 0.75rem; background: rgba(124, 58, 237, 0.03);
+    }
+    .dgm-group-label {
+      font-size: 0.65rem; font-weight: 700; color: var(--dgm-neutral-800);
+      text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem;
+    }
+    .dgm-step-number {
+      width: 1.5rem; height: 1.5rem; background: var(--dgm-blue);
+      color: white; border-radius: 50%; font-size: 0.6rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 4 — Data Product Creation Workflow</div>
+  <div class="dgm-container" style="max-width: 750px;">
+
+    <div class="dgm-timeline" style="gap: 0.5rem;">
+
+      <!-- Step 1: DPO executes Terraform template -->
+      <div class="dgm-timeline-step" data-step="1">
+        <div class="dgm-timeline-step-node">
+          <div>DPO executes platform Terraform template</div>
+        </div>
+      </div>
+
+      <!-- Steps 2–7: Platform Automation (dashed blue boundary) -->
+      <div class="dgm-timeline-step" data-step="2">
+        <div class="dgm-group-dashed-blue">
+          <div class="dgm-group-label">Platform Automation</div>
+
+          <!-- Step 2 proper -->
+          <div class="dgm-timeline-step-node" style="margin-bottom:0.5rem;">
+            <img src="../Category Icons/Developer Tools/SVG/Developer_Tools-512-color.svg" class="dgm-node-icon-sm" alt="Cloud Build">
+            <div>
+              <span style="font-weight:600;">Cloud Build</span><br>
+              <span class="dgm-node-tech">Validate schema, run integration tests</span>
+            </div>
+          </div>
+
+          <!-- Steps 3–7: Parallel branches -->
+          <div class="dgm-parallel-row">
+            <div class="dgm-parallel-step">
+              <div class="step-num">3</div>
+              <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon-sm" alt="BigQuery">
+              <span>Provision<br>BigQuery<br>dataset</span>
+            </div>
+            <div class="dgm-parallel-step">
+              <div class="step-num">4</div>
+              <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="dgm-node-icon-sm" alt="IAM">
+              <span>Apply IAM<br>policies</span>
+            </div>
+            <div class="dgm-parallel-step">
+              <div class="step-num">5</div>
+              <img src="../Category Icons/Management Tools/SVG/ManagementTools-512-color.svg" class="dgm-node-icon-sm" alt="Data Catalog">
+              <span>Register in<br>Data Catalog</span>
+            </div>
+            <div class="dgm-parallel-step">
+              <div class="step-num">6</div>
+              <img src="../Category Icons/Data Analytics/SVG/DataAnalytics-512-color.svg" class="dgm-node-icon-sm" alt="Dataplex">
+              <span>Deploy<br>quality rules</span>
+            </div>
+            <div class="dgm-parallel-step">
+              <div class="step-num">7</div>
+              <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="dgm-node-icon-sm" alt="Monitoring">
+              <span>Deploy SLO<br>dashboards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8: Sandbox validation (dashed violet boundary) -->
+      <div class="dgm-timeline-step" data-step="8">
+        <div class="dgm-group-dashed-violet">
+          <div class="dgm-group-label">Sandbox</div>
+          <div class="dgm-timeline-step-node">
+            <img src="../Category Icons/Developer Tools/SVG/Developer_Tools-512-color.svg" class="dgm-node-icon-sm" alt="Cloud Build">
+            <div>
+              <span style="font-weight:600;">Sandbox validation</span><br>
+              <span class="dgm-node-tech">Isolated environment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 9: DPO promotes to production -->
+      <div class="dgm-timeline-step" data-step="9">
+        <div class="dgm-timeline-step-node">
+          <div>DPO promotes to production</div>
+        </div>
+      </div>
+
+      <!-- Step 10: Discoverable -->
+      <div class="dgm-timeline-step" data-step="10">
+        <div class="dgm-timeline-step-node">
+          <img src="../Category Icons/Management Tools/SVG/ManagementTools-512-color.svg" class="dgm-node-icon-sm" alt="Data Catalog">
+          <div>
+            <span style="font-weight:600;">Discoverable</span><br>
+            <span class="dgm-node-tech">by Consumers</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

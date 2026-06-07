@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 1 — Electronic Monitoring Data Product Flow</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .dgm-node-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+    }
+    .dgm-node-icon-sm {
+      width: 22px; height: 22px; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 1 — Electronic Monitoring Data Product Flow</div>
+  <div class="dgm-container">
+
+    <!-- Row 1: Three Columns -->
+    <div class="dgm-row">
+
+      <!-- Upstream Sources -->
+      <div class="dgm-section dgm-section-upstream">
+        <div class="dgm-section-label">⬆ Upstream Sources</div>
+        <div class="dgm-node">
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon" alt="BigQuery">
+          <div><span class="dgm-node-label">EM Trip Reports</span><br><span class="dgm-node-tech">BigQuery</span></div>
+        </div>
+        <div class="dgm-node">
+          <img src="../Unique Icons/Cloud Storage/SVG/Cloud_Storage-512-color.svg" class="dgm-node-icon" alt="Cloud Storage">
+          <div><span class="dgm-node-label">Raw Video Footage</span><br><span class="dgm-node-tech">Cloud Storage (Archive)</span></div>
+        </div>
+        <div class="dgm-node">
+          <img src="../Unique Icons/Cloud Run/SVG/CloudRun-512-color-rgb.svg" class="dgm-node-icon" alt="Cloud Run">
+          <div><span class="dgm-node-label">EM Ingestion API</span><br><span class="dgm-node-tech">Cloud Run</span></div>
+        </div>
+      </div>
+
+      <!-- Fishery Monitoring Domain (centerpiece) -->
+      <div class="dgm-section dgm-section-domain">
+        <div class="dgm-section-label">⏺ Fishery Monitoring Domain</div>
+        <div class="dgm-node-cylinder dgm-node-highlight" style="display:flex;justify-content:center;align-items:center;gap:0.5rem;">
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon" alt="BigQuery">
+          <div>EM Data Product</div>
+        </div>
+        <div class="dgm-node">
+          <img src="../Category Icons/Data Analytics/SVG/DataAnalytics-512-color.svg" class="dgm-node-icon" alt="Dataplex">
+          <div><span class="dgm-node-label">Quality Rules</span><br><span class="dgm-node-tech">Dataplex</span></div>
+        </div>
+        <div class="dgm-node">
+          <img src="../Category Icons/Management Tools/SVG/ManagementTools-512-color.svg" class="dgm-node-icon" alt="Data Catalog">
+          <div><span class="dgm-node-label">Metadata & Discovery</span><br><span class="dgm-node-tech">Data Catalog</span></div>
+        </div>
+      </div>
+
+      <!-- Downstream Consumers -->
+      <div class="dgm-section dgm-section-downstream">
+        <div class="dgm-section-label">Downstream Consumers ⬇</div>
+        <div class="dgm-node">
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon" alt="BigQuery">
+          <div><span class="dgm-node-label">Stock Assessment</span><br><span class="dgm-node-tech">Aggregated Queries</span></div>
+        </div>
+        <div class="dgm-node">
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon" alt="BigQuery">
+          <div><span class="dgm-node-label">Protected Species</span><br><span class="dgm-node-tech">Interaction Events</span></div>
+        </div>
+        <div class="dgm-node">
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="dgm-node-icon" alt="BigQuery">
+          <div><span class="dgm-node-label">Enforcement</span><br><span class="dgm-node-tech">Vessel-Level</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Platform Services (horizontal bar) -->
+    <div class="dgm-section dgm-section-platform">
+      <div class="dgm-section-label">Platform Services</div>
+      <div class="dgm-node-service">
+        <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="dgm-node-icon-sm" alt="IAM">
+        <div>Row-Level Security<br><span class="dgm-node-tech">Cloud IAM</span></div>
+      </div>
+      <div class="dgm-node-service">
+        <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="dgm-node-icon-sm" alt="Monitoring">
+        <div>SLO Dashboards<br><span class="dgm-node-tech">Cloud Monitoring</span></div>
+      </div>
+      <div class="dgm-node-service">
+        <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="dgm-node-icon-sm" alt="DLP">
+        <div>PII Detection<br><span class="dgm-node-tech">Cloud DLP</span></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

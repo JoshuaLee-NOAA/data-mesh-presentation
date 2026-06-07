@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 11 — Four Principles Integration</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 3rem; display: flex; justify-content: center; }
+
+    .quad-container {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Title */
+    .quad-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* The 2x2 grid of principle cards */
+    .quad-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 3.5rem 5rem;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Principle card */
+    .principle-card {
+      background: white;
+      border: 2px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 1.25rem 1.1rem;
+      box-shadow: var(--shadow-diagram);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 2;
+      max-width: 340px;
+    }
+
+    /* Pin left-column cards to the left, right-column cards to the right */
+    .principle-card-left {
+      justify-self: start;
+      margin-right: auto;
+    }
+
+    .principle-card-right {
+      justify-self: end;
+      margin-left: auto;
+    }
+
+    .principle-number {
+      font-size: 0.55rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .principle-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      line-height: 1.25;
+    }
+
+    .principle-body {
+      font-size: 0.65rem;
+      color: var(--dgm-neutral-500);
+      line-height: 1.4;
+    }
+
+    .principle-tech {
+      font-size: 0.6rem;
+      color: var(--dgm-neutral-500);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* Color variants per principle */
+    .principle-domain {
+      border-color: var(--dgm-blue);
+      background: rgba(37, 99, 235, 0.03);
+    }
+    .principle-domain .principle-number { color: var(--dgm-blue); }
+
+    .principle-product {
+      border-color: var(--dgm-amber);
+      background: rgba(217, 119, 6, 0.03);
+    }
+    .principle-product .principle-number { color: var(--dgm-amber); }
+
+    .principle-platform {
+      border-color: var(--dgm-emerald);
+      background: rgba(5, 150, 105, 0.03);
+    }
+    .principle-platform .principle-number { color: var(--dgm-emerald); }
+
+    .principle-governance {
+      border-color: var(--dgm-violet);
+      background: rgba(124, 58, 237, 0.03);
+    }
+    .principle-governance .principle-number { color: var(--dgm-violet); }
+
+    /* Center hub — absolutely positioned over the grid center */
+    .center-hub-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .center-hub {
+      width: 9rem;
+      height: 9rem;
+      border-radius: 50%;
+      border: 3px solid var(--dgm-highlight-border);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.2rem;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+      pointer-events: auto;
+    }
+
+    .center-hub-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--dgm-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+
+    .center-hub-sub {
+      font-size: 0.55rem;
+      color: var(--dgm-neutral-500);
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    /* SVG overlay for connecting lines */
+    .quad-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Edge labels (positioned absolutely) */
+    .edge-label {
+      position: absolute;
+      z-index: 8;
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: var(--dgm-neutral-500);
+      background: var(--dgm-neutral-50);
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+      pointer-events: none;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* Vertical connector labels */
+    .edge-label-v {
+      background: var(--dgm-neutral-50);
+    }
+
+    /* Tension resolution label (bidirectional) */
+    .tension-label {
+      position: absolute;
+      z-index: 8;
+      font-size: 0.48rem;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--dgm-rose);
+      background: rgba(225, 29, 72, 0.06);
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    /* Legend */
+    .quad-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.58rem;
+      color: var(--dgm-neutral-500);
+      align-items: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .legend-dot-blue { background: var(--dgm-blue); }
+    .legend-dot-amber { background: var(--dgm-amber); }
+    .legend-dot-emerald { background: var(--dgm-emerald); }
+    .legend-dot-violet { background: var(--dgm-violet); }
+    .legend-dot-rose { background: var(--dgm-rose); }
+
+    .legend-line {
+      width: 1.5rem;
+      height: 1px;
+      border-top: 1.5px dashed var(--dgm-neutral-300);
+      flex-shrink: 0;
+    }
+
+    /* Annotation box below the diagram */
+    .quad-annotation {
+      margin-top: 1rem;
+      font-size: 0.58rem;
+      color: var(--dgm-neutral-500);
+      text-align: center;
+      line-height: 1.4;
+      max-width: 700px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div class="quad-container" id="quadContainer">
+    <!-- Title -->
+    <div class="quad-title">Diagram 11 &mdash; Four Principles Integration: The EM Data Product as a Coherent System</div>
+
+    <!-- 2x2 Grid wrapper -->
+    <div style="position: relative; width: 100%;">
+      <!-- The grid of principle cards -->
+      <div class="quad-grid" id="quadGrid">
+
+        <!-- Top-Left: Principle 1 — Domain Ownership -->
+        <div class="principle-card principle-card-left principle-domain" id="principle1">
+          <div class="principle-number">Principle 1</div>
+          <div class="principle-title">Domain Ownership</div>
+          <div class="principle-body">Fishery Monitoring domain owns the EM data product lifecycle &mdash; from raw video ingestion through species ID, quality control, and publication. DPO coordinates a virtual team spanning six science centers.</div>
+          <div class="principle-tech">Section 5.1 &bull; MSA sec.403</div>
+        </div>
+
+        <!-- Top-Right: Principle 2 — Data as a Product -->
+        <div class="principle-card principle-card-right principle-product" id="principle2">
+          <div class="principle-number">Principle 2</div>
+          <div class="principle-title">Data as a Product</div>
+          <div class="principle-body">EM Data Contract: Schema v1.2, Completeness SLO >99%, Species ID Accuracy >95% family / >90% species, Timeliness <30 days. Row-level access controls enforce MSA confidentiality.</div>
+          <div class="principle-tech">Section 5.2 &bull; Dehghani, 2022; Perrin & Broda, 2024</div>
+        </div>
+
+        <!-- Bottom-Left: Principle 3 — Self-Serve Platform -->
+        <div class="principle-card principle-card-left principle-platform" id="principle3">
+          <div class="principle-number">Principle 3</div>
+          <div class="principle-title">Self-Serve Platform</div>
+          <div class="principle-body">Terraform template automatically provisions BigQuery datasets, IAM policies, Data Catalog entries, Dataplex quality rules, and Cloud Monitoring SLO dashboards. DPO promotes via CI/CD pipeline.</div>
+          <div class="principle-tech">Section 5.3 &bull; BigQuery, Cloud Run, Data Catalog, Dataplex, Cloud Build</div>
+        </div>
+
+        <!-- Bottom-Right: Principle 4 — Federated Computational Governance -->
+        <div class="principle-card principle-card-right principle-governance" id="principle4">
+          <div class="principle-number">Principle 4</div>
+          <div class="principle-title">Federated Computational Governance</div>
+          <div class="principle-body">MSA sec.402(b): Row-level security in BigQuery. NIST 800-53: AC-3, AU-2, SC-7, SI-10, SC-13 inherited via platform. 60&ndash;70% of controls covered by platform ATO.</div>
+          <div class="principle-tech">Section 5.4 &bull; Cloud IAM, VPC Service Controls, Cloud DLP, Cloud KMS</div>
+        </div>
+
+      </div>
+
+      <!-- SVG overlay for connecting lines -->
+      <svg class="quad-lines" id="quadSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <!-- Center hub — positioned absolutely -->
+      <div class="center-hub-wrapper" id="centerHub">
+        <div class="center-hub">
+          <div class="center-hub-title">EM Data Product</div>
+          <div class="center-hub-sub">as Integrated Whole</div>
+        </div>
+      </div>
+
+      <!-- Edge labels between horizontal principles -->
+      <div class="edge-label" id="edgeH1" style="top: 43%; left: 24%;">DPO owns<br>product standards</div>
+      <div class="edge-label" id="edgeH2" style="top: 43%; right: 24%;">Policy defines<br>platform templates</div>
+
+      <!-- Edge labels between vertical principles -->
+      <div class="edge-label" id="edgeV1" style="top: 37%; left: 18%;">Autonomy within<br>guardrails</div>
+      <div class="edge-label" id="edgeV2" style="top: 37%; right: 18%;">Contract-governed<br>compliance</div>
+
+      <!-- Tension resolution labels (diagonal) -->
+      <div class="tension-label" id="tensionTL" style="top: 25%; left: 39%;">Speed vs. Compliance</div>
+      <div class="tension-label" id="tensionTR" style="top: 25%; right: 39%;">Local vs. Global Consistency</div>
+      <div class="tension-label" id="tensionBL" style="bottom: 25%; left: 39%;">Autonomy vs. Standardization</div>
+      <div class="tension-label" id="tensionBR" style="bottom: 25%; right: 39%;">Speed vs. Security</div>
+    </div>
+
+    <!-- Legend -->
+    <div class="quad-legend">
+      <div class="legend-item"><span class="legend-dot legend-dot-blue"></span> Domain Ownership</div>
+      <div class="legend-item"><span class="legend-dot legend-dot-amber"></span> Data as a Product</div>
+      <div class="legend-item"><span class="legend-dot legend-dot-emerald"></span> Platform</div>
+      <div class="legend-item"><span class="legend-dot legend-dot-violet"></span> Governance</div>
+      <div class="legend-item"><span class="legend-line"></span> Principle-to-Principle Tension</div>
+      <div class="legend-item"><span class="legend-dot legend-dot-rose"></span> Tension Resolution</div>
+    </div>
+
+    <!-- Annotation -->
+    <div class="quad-annotation">
+      Each principle addresses the structural weaknesses of the others. The EM data product exists at their convergence &mdash; owned by a domain, specified as a product, hosted on the platform, and governed computationally.
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      function drawLines() {
+        const grid = document.getElementById('quadGrid');
+        const svg = document.getElementById('quadSvg');
+        const hub = document.getElementById('centerHub');
+        const container = grid.parentElement;
+
+        if (!grid || !svg || !hub || !container) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const gridRect = grid.getBoundingClientRect();
+        const hubRect = hub.getBoundingClientRect();
+
+        // Compute center of the hub relative to the container
+        const hubCX = hubRect.left + hubRect.width / 2 - containerRect.left;
+        const hubCY = hubRect.top + hubRect.height / 2 - containerRect.top;
+
+        // Set SVG dimensions
+        svg.setAttribute('width', containerRect.width);
+        svg.setAttribute('height', containerRect.height);
+        svg.style.width = containerRect.width + 'px';
+        svg.style.height = containerRect.height + 'px';
+
+        // Get the four principle cards
+        const cards = [
+          document.getElementById('principle1'),
+          document.getElementById('principle2'),
+          document.getElementById('principle3'),
+          document.getElementById('principle4')
+        ];
+
+        let html = '';
+
+        // Marker definitions for arrows
+        html += '<defs>';
+        html += '<marker id="arrowBlue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563EB"/></marker>';
+        html += '<marker id="arrowAmber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#D97706"/></marker>';
+        html += '<marker id="arrowEmerald" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#059669"/></marker>';
+        html += '<marker id="arrowViolet" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#7C3AED"/></marker>';
+        html += '</defs>';
+
+        // Helper: find where a ray from (cx,cy) to (hx,hy) exits a rect
+        function edgeIntersection(rect, cx, cy, hx, hy) {
+          const dx = hx - cx;
+          const dy = hy - cy;
+          if (Math.abs(dx) < 0.001 && Math.abs(dy) < 0.001) return { x: cx, y: cy };
+
+          const r = { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+          let bestT = Infinity;
+          let bestPt = { x: cx, y: cy };
+
+          // Right edge: x = r.right
+          if (dx > 0) {
+            const t = (r.right - cx) / dx;
+            const y = cy + t * dy;
+            if (t > 0 && t < bestT && y >= r.top && y <= r.bottom) {
+              bestT = t; bestPt = { x: r.right, y };
+            }
+          }
+          // Left edge: x = r.left
+          if (dx < 0) {
+            const t = (r.left - cx) / dx;
+            const y = cy + t * dy;
+            if (t > 0 && t < bestT && y >= r.top && y <= r.bottom) {
+              bestT = t; bestPt = { x: r.left, y };
+            }
+          }
+          // Bottom edge: y = r.bottom
+          if (dy > 0) {
+            const t = (r.bottom - cy) / dy;
+            const x = cx + t * dx;
+            if (t > 0 && t < bestT && x >= r.left && x <= r.right) {
+              bestT = t; bestPt = { x, y: r.bottom };
+            }
+          }
+          // Top edge: y = r.top
+          if (dy < 0) {
+            const t = (r.top - cy) / dy;
+            const x = cx + t * dx;
+            if (t > 0 && t < bestT && x >= r.left && x <= r.right) {
+              bestT = t; bestPt = { x, y: r.top };
+            }
+          }
+          return bestPt;
+        }
+
+        // Draw lines from each card edge to the center hub
+        const cardColors = ['#2563EB', '#D97706', '#059669', '#7C3AED'];
+        const markerIds = ['url(#arrowBlue)', 'url(#arrowAmber)', 'url(#arrowEmerald)', 'url(#arrowViolet)'];
+
+        cards.forEach((card, i) => {
+          if (!card) return;
+          const cr = card.getBoundingClientRect();
+          const cx = cr.left + cr.width / 2 - containerRect.left;
+          const cy = cr.top + cr.height / 2 - containerRect.top;
+
+          // Compute edge-exit point from card toward hub
+          const edge = edgeIntersection(cr, cr.left + cr.width / 2, cr.top + cr.height / 2, hubCX + containerRect.left, hubCY + containerRect.top);
+          const x1 = edge.x - containerRect.left;
+          const y1 = edge.y - containerRect.top;
+
+          html += `<line x1="${x1}" y1="${y1}" x2="${hubCX}" y2="${hubCY}" stroke="${cardColors[i]}" stroke-width="1.5" stroke-dasharray="6,3" marker-end="${markerIds[i]}" opacity="0.55"/>`;
+        });
+
+        // Draw bidirectional edges between adjacent principles
+        // P1 (top-left) ↔ P2 (top-right): horizontal
+        if (cards[0] && cards[1]) {
+          const c0 = cards[0].getBoundingClientRect();
+          const c1 = cards[1].getBoundingClientRect();
+          const x1 = c0.right - containerRect.left;
+          const y1 = c0.top + c0.height / 2 - containerRect.top;
+          const x2 = c1.left - containerRect.left;
+          const y2 = y1;
+          html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D4D4D8" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>`;
+        }
+
+        // P3 (bottom-left) ↔ P4 (bottom-right): horizontal
+        if (cards[2] && cards[3]) {
+          const c2 = cards[2].getBoundingClientRect();
+          const c3 = cards[3].getBoundingClientRect();
+          const x1 = c2.right - containerRect.left;
+          const y1 = c2.top + c2.height / 2 - containerRect.top;
+          const x2 = c3.left - containerRect.left;
+          const y2 = y1;
+          html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D4D4D8" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>`;
+        }
+
+        // P1 (top-left) ↔ P3 (bottom-left): vertical
+        if (cards[0] && cards[2]) {
+          const c0 = cards[0].getBoundingClientRect();
+          const c2 = cards[2].getBoundingClientRect();
+          const x1 = c0.left + c0.width / 2 - containerRect.left;
+          const y1 = c0.bottom - containerRect.top;
+          const x2 = x1;
+          const y2 = c2.top - containerRect.top;
+          html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D4D4D8" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>`;
+        }
+
+        // P2 (top-right) ↔ P4 (bottom-right): vertical
+        if (cards[1] && cards[3]) {
+          const c1 = cards[1].getBoundingClientRect();
+          const c3 = cards[3].getBoundingClientRect();
+          const x1 = c1.left + c1.width / 2 - containerRect.left;
+          const y1 = c1.bottom - containerRect.top;
+          const x2 = x1;
+          const y2 = c3.top - containerRect.top;
+          html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#D4D4D8" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6"/>`;
+        }
+
+        // Diagonal tension lines (P1↔P4, P2↔P3) — thinner, rose-colored
+        // P1 (TL) ↔ P4 (BR): Domain Ownership ↔ Governance
+        if (cards[0] && cards[3]) {
+          const c0 = cards[0].getBoundingClientRect();
+          const c3 = cards[3].getBoundingClientRect();
+          const x1 = c0.right - containerRect.left - 20;
+          const y1 = c0.bottom - containerRect.top;
+          const x2 = c3.left - containerRect.left + 20;
+          const y2 = c3.top - containerRect.top;
+          html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#E11D48" stroke-width="0.8" stroke-dasharray="3,5" opacity="0.3"/>`;
+        }
+
+        // P2 (TR) ↔ P3 (BL): Data as a Product ↔ Platform
+        if (cards[1] && cards[2]) {
+          const c1 = cards[1].getBoundingClientRect();
+          const c2 = cards[2].getBoundingClientRect();
+          const x1 = c1.left - containerRect.left + 20;
+          const y1 = c1.bottom - containerRect.top;
+          const x2 = c2.right - containerRect.left - 20;
+          const y2 = c2.top - containerRect.top;
+          html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#E11D48" stroke-width="0.8" stroke-dasharray="3,5" opacity="0.3"/>`;
+        }
+
+        svg.innerHTML = html;
+      }
+
+      // Draw on load and on resize
+      window.addEventListener('load', function() {
+        setTimeout(drawLines, 100);
+      });
+      window.addEventListener('resize', drawLines);
+      setTimeout(drawLines, 500);
+    })();
+  </script>
+</body>
+</html>

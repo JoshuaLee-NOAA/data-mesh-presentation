@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 9 — Current State Fragmentation</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1rem; }
+    .d9-outer { max-width: 720px; margin: 0 auto; }
+
+    .d9-radial {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Connector SVG */
+    .d9-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Center node */
+    .d9-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px; height: 60px;
+      z-index: 2;
+      border: 2px solid var(--dgm-neutral-800);
+      border-radius: var(--radius-diagram);
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .d9-center-name {
+      font-size: 0.7rem; font-weight: 700; color: var(--dgm-neutral-800);
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    /* Silo cards */
+    .d9-silo {
+      position: absolute;
+      z-index: 2;
+      width: 110px;
+      border-radius: var(--radius-diagram);
+      padding: 0.4rem 0.35rem;
+      text-align: center;
+      box-shadow: var(--shadow-diagram);
+    }
+    .d9-silo-region {
+      font-size: 0.48rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .d9-silo-source {
+      font-size: 0.5rem; font-weight: 600; margin-top: 0.05rem;
+    }
+    .d9-silo-ingestion {
+      font-size: 0.45rem; font-style: italic; margin-top: 0.2rem;
+      padding-top: 0.15rem; border-top: 1px solid;
+      opacity: 0.8;
+    }
+
+    /* Colors per silo */
+    .d9-silo-a { border: 1.5px solid var(--dgm-blue); background: rgba(37,99,235,0.04); }
+    .d9-silo-a .d9-silo-region { color: var(--dgm-blue); }
+    .d9-silo-a .d9-silo-source { color: var(--dgm-neutral-800); }
+    .d9-silo-a .d9-silo-ingestion { color: var(--dgm-blue); border-color: var(--dgm-blue); }
+
+    .d9-silo-b { border: 1.5px solid var(--dgm-cyan); background: rgba(8,145,178,0.04); }
+    .d9-silo-b .d9-silo-region { color: var(--dgm-cyan); }
+    .d9-silo-b .d9-silo-source { color: var(--dgm-neutral-800); }
+    .d9-silo-b .d9-silo-ingestion { color: var(--dgm-cyan); border-color: var(--dgm-cyan); }
+
+    .d9-silo-c { border: 1.5px solid var(--dgm-emerald); background: rgba(5,150,105,0.04); }
+    .d9-silo-c .d9-silo-region { color: var(--dgm-emerald); }
+    .d9-silo-c .d9-silo-source { color: var(--dgm-neutral-800); }
+    .d9-silo-c .d9-silo-ingestion { color: var(--dgm-emerald); border-color: var(--dgm-emerald); }
+
+    .d9-silo-d { border: 1.5px solid var(--dgm-violet); background: rgba(124,58,237,0.04); }
+    .d9-silo-d .d9-silo-region { color: var(--dgm-violet); }
+    .d9-silo-d .d9-silo-source { color: var(--dgm-neutral-800); }
+    .d9-silo-d .d9-silo-ingestion { color: var(--dgm-violet); border-color: var(--dgm-violet); }
+
+    .d9-silo-e { border: 1.5px solid var(--dgm-amber); background: rgba(217,119,6,0.04); }
+    .d9-silo-e .d9-silo-region { color: var(--dgm-amber); }
+    .d9-silo-e .d9-silo-source { color: var(--dgm-neutral-800); }
+    .d9-silo-e .d9-silo-ingestion { color: var(--dgm-amber); border-color: var(--dgm-amber); }
+
+    .d9-silo-f { border: 1.5px solid var(--dgm-rose); background: rgba(225,29,72,0.04); }
+    .d9-silo-f .d9-silo-region { color: var(--dgm-rose); }
+    .d9-silo-f .d9-silo-source { color: var(--dgm-neutral-800); }
+    .d9-silo-f .d9-silo-ingestion { color: var(--dgm-rose); border-color: var(--dgm-rose); }
+
+    /* Positions — tighter ring */
+    .d9-silo-a  { top: 4%;  left: 50%; transform: translateX(-50%); }
+    .d9-silo-b  { top: 22%; right: 10%; }
+    .d9-silo-c  { bottom: 22%; right: 10%; }
+    .d9-silo-d  { bottom: 4%; left: 50%; transform: translateX(-50%); }
+    .d9-silo-e  { bottom: 22%; left: 10%; }
+    .d9-silo-f  { top: 22%; left: 10%; }
+
+    /* Slight rotations for messy feel */
+    .d9-silo-b { transform: rotate(1.5deg); }
+    .d9-silo-e { transform: rotate(-1.5deg); }
+
+    /* Boundary */
+    .d9-boundary {
+      border: 2px dashed var(--dgm-rose);
+      border-radius: var(--radius-diagram);
+      background: rgba(225, 29, 72, 0.02);
+      padding: 1rem;
+      position: relative;
+    }
+    .d9-boundary-label {
+      position: absolute;
+      top: -0.5rem; left: 50%;
+      transform: translateX(-50%);
+      background: white; padding: 0 0.5rem;
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--dgm-rose);
+      white-space: nowrap;
+    }
+
+    /* Legend */
+    .d9-legend {
+      display: flex; flex-wrap: wrap; gap: 0.35rem 0.6rem;
+      justify-content: center; margin-top: 0.75rem;
+      padding: 0.5rem; border-top: 1px solid var(--dgm-neutral-200);
+    }
+    .d9-legend-item {
+      display: flex; align-items: center; gap: 0.25rem;
+      font-size: 0.5rem; color: var(--dgm-neutral-500);
+    }
+    .d9-legend-line {
+      display: inline-block; width: 1.2rem; height: 0;
+      border-top-width: 1.5px; border-top-style: solid;
+      vertical-align: middle;
+    }
+    .d9-legend-line-solid { border-top-style: solid; }
+    .d9-legend-line-dashed { border-top-style: dashed; }
+    .d9-legend-line-dotted { border-top-style: dotted; }
+    .d9-legend-line-none {
+      width: 1.2rem; border-top: none;
+      background: transparent; position: relative;
+      display: inline-block; height: 1px;
+    }
+    .d9-legend-line-none::after {
+      content: '—'; position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%); font-size: 0.5rem; color: var(--dgm-neutral-400);
+    }
+    .d9-legend-sym {
+      font-size: 0.55rem; font-weight: 700; color: var(--dgm-neutral-500);
+    }
+
+    /* Footer */
+    .d9-footer {
+      text-align: center;
+      padding: 0.5rem 0 0 0;
+      font-size: 0.58rem; font-style: italic;
+      color: var(--dgm-rose); font-weight: 600;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 9 — Current State Fragmentation</div>
+
+  <div class="d9-outer">
+
+    <div class="d9-boundary">
+      <div class="d9-boundary-label">Fragmented Data Sources</div>
+
+      <div class="d9-radial">
+
+        <!-- SVG connectors -->
+        <svg class="d9-svg" viewBox="0 0 520 520" preserveAspectRatio="xMidYMid meet">
+          <!-- Center ~(260, 260). Silos at card edge positions: -->
+
+          <!-- A (top) NE Program A — emailed spreadsheet -->
+          <line x1="260" y1="88" x2="260" y2="228" stroke="var(--dgm-blue)" stroke-width="1.5" stroke-opacity="0.6"/>
+
+          <!-- B (top-right) NE Program B — FTP upload -->
+          <line x1="358" y1="147" x2="312" y2="228" stroke="var(--dgm-cyan)" stroke-width="1.5" stroke-dasharray="4 5" stroke-opacity="0.7"/>
+
+          <!-- C (bottom-right) NE Program C — shared drive -->
+          <line x1="358" y1="374" x2="312" y2="292" stroke="var(--dgm-emerald)" stroke-width="1.5" stroke-dasharray="1.5 4" stroke-opacity="0.5"/>
+          <text x="370" y="320" fill="var(--dgm-emerald)" font-size="20" font-weight="700" opacity="0.6">?</text>
+
+          <!-- D (bottom) SE Program A — verbal handoff -->
+          <line x1="260" y1="434" x2="260" y2="292" stroke="var(--dgm-violet)" stroke-width="1" stroke-opacity="0.3"/>
+
+          <!-- E (bottom-left) SE Program B — separate DB -->
+          <line x1="162" y1="374" x2="208" y2="292" stroke="var(--dgm-amber)" stroke-width="1.5" stroke-dasharray="3 4" stroke-opacity="0.55"/>
+          <text x="160" y="320" fill="var(--dgm-amber)" font-size="20" font-weight="700" opacity="0.6">✗</text>
+
+          <!-- F (top-left) SE Program C — no connection (intentionally absent) -->
+        </svg>
+
+        <!-- Silo cards -->
+        <div class="d9-silo d9-silo-a">
+          <div class="d9-silo-region">Northeast Region</div>
+          <div class="d9-silo-source">Program A</div>
+          <div class="d9-silo-ingestion">Emailed spreadsheet</div>
+        </div>
+
+        <div class="d9-silo d9-silo-b">
+          <div class="d9-silo-region">Northeast Region</div>
+          <div class="d9-silo-source">Program B</div>
+          <div class="d9-silo-ingestion">FTP upload</div>
+        </div>
+
+        <div class="d9-silo d9-silo-c">
+          <div class="d9-silo-region">Northeast Region</div>
+          <div class="d9-silo-source">Program C</div>
+          <div class="d9-silo-ingestion">CSV via shared drive</div>
+        </div>
+
+        <div class="d9-silo d9-silo-d">
+          <div class="d9-silo-region">Southeast Region</div>
+          <div class="d9-silo-source">Program A</div>
+          <div class="d9-silo-ingestion">Verbal handoff</div>
+        </div>
+
+        <div class="d9-silo d9-silo-e">
+          <div class="d9-silo-region">Southeast Region</div>
+          <div class="d9-silo-source">Program B</div>
+          <div class="d9-silo-ingestion">Separate database</div>
+        </div>
+
+        <div class="d9-silo d9-silo-f">
+          <div class="d9-silo-region">Southeast Region</div>
+          <div class="d9-silo-source">Program C</div>
+          <div class="d9-silo-ingestion">No connection</div>
+        </div>
+
+        <!-- Center -->
+        <div class="d9-center">
+          <div class="d9-center-name">Scientist</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="d9-legend">
+      <div class="d9-legend-item"><span class="d9-legend-line d9-legend-line-solid" style="border-color:var(--dgm-neutral-400);"></span> Fragile</div>
+      <div class="d9-legend-item"><span class="d9-legend-line d9-legend-line-dashed" style="border-color:var(--dgm-neutral-400);"></span> Unreliable</div>
+      <div class="d9-legend-item"><span class="d9-legend-line d9-legend-line-dotted" style="border-color:var(--dgm-neutral-400);"></span><span class="d9-legend-sym">?</span> Uncertain</div>
+      <div class="d9-legend-item"><span class="d9-legend-line d9-legend-line-solid" style="border-color:var(--dgm-neutral-300);border-top-width:1px;"></span> Weak</div>
+      <div class="d9-legend-item"><span class="d9-legend-line d9-legend-line-dashed" style="border-color:var(--dgm-neutral-400);"></span><span class="d9-legend-sym">✗</span> Blocked</div>
+      <div class="d9-legend-item"><span class="d9-legend-line-none"></span> None</div>
+    </div>
+
+    <div class="d9-footer">
+      No shared discovery · Inconsistent schemas · Ad-hoc point-to-point integration
+    </div>
+
+  </div>
+
+</body>
+</html>

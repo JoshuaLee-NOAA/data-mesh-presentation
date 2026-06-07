@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-georgetown-blue: #011E41;
+  --color-georgetown-gray: #63666A;
+  --color-georgetown-gold: #F4B942;
+  --color-georgetown-teal: #14B8A6;
+  --color-georgetown-cool-gray: #A0A0A5;
+  --color-georgetown-off-white: #F5F5F0;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-georgetown-gray);
+  background: white;
+}
+
+/* Gradient accents */
+.gradient-divider {
+  background: linear-gradient(135deg, var(--color-georgetown-gold), var(--color-georgetown-teal));
+  height: 3px;
+  border-radius: 9999px;
+}
+.gradient-top {
+  background: linear-gradient(180deg, var(--color-georgetown-blue), var(--color-georgetown-teal));
+}
+
+/* Scroll-snap container */
+.slide-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.slide {
+  scroll-snap-align: start;
+  height: 100vh;
+  height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Progress bar fill animation */
+.progress-bar {
+  transition: width 0.3s ease;
+}
+
+/* Arrow button hover */
+.arrow-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.arrow-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Teal glow behind up arrow */
+.arrow-glow-teal {
+  box-shadow: 0 0 28px rgba(20, 184, 166, 0.45), 0 0 56px rgba(20, 184, 166, 0.2);
+}
+.arrow-glow-teal:hover {
+  box-shadow: 0 0 40px rgba(20, 184, 166, 0.6), 0 0 80px rgba(20, 184, 166, 0.3);
+}
+
+/* Gold glow behind down arrow */
+.arrow-glow-gold {
+  box-shadow: 0 0 28px rgba(244, 185, 66, 0.4), 0 0 56px rgba(244, 185, 66, 0.18);
+}
+.arrow-glow-gold:hover {
+  box-shadow: 0 0 40px rgba(244, 185, 66, 0.55), 0 0 80px rgba(244, 185, 66, 0.25);
+}
+
+/* Hero image glow */
+.hero-glow {
+  filter: drop-shadow(0 0 28px rgba(20, 184, 166, 0.3)) drop-shadow(0 0 56px rgba(20, 184, 166, 0.12));
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.hero-float {
+  animation: float 5s ease-in-out infinite;
+}

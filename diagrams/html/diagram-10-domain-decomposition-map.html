@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram 10 — Domain Decomposition Map (EM Context)</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 1.5rem 1rem; display: flex; justify-content: center; }
+
+    .d10-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .d10-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-500);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    /* Producer domain (highlighted) */
+    .d10-producer {
+      border: 2px solid var(--dgm-blue);
+      background: var(--dgm-highlight-bg);
+      border-radius: var(--radius-diagram);
+      padding: 0.75rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      z-index: 2;
+    }
+    .d10-producer-label {
+      font-size: 0.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--dgm-blue);
+      margin-bottom: 0.15rem;
+    }
+    .d10-producer-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      line-height: 1.25;
+    }
+    .d10-producer-cite {
+      font-size: 0.55rem;
+      color: var(--dgm-neutral-500);
+      margin-top: 0.2rem;
+    }
+    .d10-producer-desc {
+      font-size: 0.55rem;
+      color: var(--dgm-neutral-500);
+      font-style: italic;
+      margin-top: 0.25rem;
+      line-height: 1.3;
+    }
+
+    /* Consumer domains row */
+    .d10-consumers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .d10-consumer {
+      background: white;
+      border: 1.5px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram);
+      padding: 0.75rem 0.6rem;
+      text-align: center;
+      box-shadow: var(--shadow-diagram);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .d10-consumer-name {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-800);
+      line-height: 1.2;
+    }
+    .d10-consumer-cite {
+      font-size: 0.48rem;
+      color: var(--dgm-neutral-500);
+    }
+    .d10-consumer-arrow-label {
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: var(--dgm-blue);
+      font-style: italic;
+      margin-top: 0.3rem;
+    }
+
+    /* Cross-cutting reference data */
+    .d10-reference {
+      border: 1.5px solid var(--dgm-neutral-500);
+      border-radius: var(--radius-diagram);
+      background: var(--dgm-neutral-50);
+      padding: 0.6rem 1.5rem;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+    .d10-reference-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--dgm-neutral-500);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.3rem;
+    }
+    .d10-reference-items {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      font-size: 0.55rem;
+      color: var(--dgm-neutral-600);
+      font-weight: 500;
+    }
+
+    /* SVG overlay */
+    .d10-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Annotation */
+    .d10-annotation {
+      font-size: 0.5rem;
+      color: var(--dgm-neutral-500);
+      text-align: center;
+      font-style: italic;
+      line-height: 1.3;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body class="dgm-page">
+  <div class="d10-container" id="d10Container">
+    <div class="d10-title">Diagram 10 — Domain Decomposition Map: EM Data Product Context</div>
+
+    <div style="position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;" id="d10Layout">
+
+      <!-- Producer: Fishery Monitoring -->
+      <div class="d10-producer" id="d10Producer">
+        <div class="d10-producer-label">Producer Domain</div>
+        <div class="d10-producer-name">Fishery Monitoring ★</div>
+        <div class="d10-producer-cite">MSA §403</div>
+        <div class="d10-producer-desc">Owns the EM Data Product lifecycle — from video ingestion through species ID to published trip reports</div>
+      </div>
+
+      <!-- Arrow label row -->
+      <div style="display:flex;justify-content:center;width:100%;font-size:0.5rem;color:var(--dgm-blue);font-weight:600;font-style:italic;z-index:2;position:relative;">
+        EM Data Product flows to consuming domains
+      </div>
+
+      <!-- Consumers -->
+      <div class="d10-consumers">
+        <div class="d10-consumer" id="d10Consumer1">
+          <div class="d10-consumer-name">Stock Assessment & Surveys</div>
+          <div class="d10-consumer-cite">MSA §404, NS 2</div>
+          <div class="d10-consumer-arrow-label">Aggregated catch composition</div>
+        </div>
+        <div class="d10-consumer" id="d10Consumer2">
+          <div class="d10-consumer-name">Protected Species & Bycatch</div>
+          <div class="d10-consumer-cite">NS 9, ESA, MMPA</div>
+          <div class="d10-consumer-arrow-label">Interaction events</div>
+        </div>
+        <div class="d10-consumer" id="d10Consumer3">
+          <div class="d10-consumer-name">Enforcement</div>
+          <div class="d10-consumer-cite">MSA §311</div>
+          <div class="d10-consumer-arrow-label">Vessel-level compliance</div>
+        </div>
+      </div>
+
+      <!-- Cross-Cutting Reference Data -->
+      <div class="d10-reference" id="d10Reference">
+        <div class="d10-reference-label">Cross-Cutting Reference Data (Shared Across All Domains)</div>
+        <div class="d10-reference-items">
+          <span>Species Taxonomy</span>
+          <span>·</span>
+          <span>Vessel Registry</span>
+          <span>·</span>
+          <span>Geographic Areas</span>
+        </div>
+      </div>
+
+      <!-- SVG overlay for arrows -->
+      <svg class="d10-lines" id="d10Svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <div class="d10-annotation">
+        Fishery Monitoring is one of eight NOAA Fisheries domains. The EM data product serves three primary consumers — each accessing a different view of the same product, governed by MSA confidentiality rules enforced at the platform level.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      function drawLines() {
+        const layout = document.getElementById('d10Layout');
+        const svg = document.getElementById('d10Svg');
+        const producer = document.getElementById('d10Producer');
+        const c1 = document.getElementById('d10Consumer1');
+        const c2 = document.getElementById('d10Consumer2');
+        const c3 = document.getElementById('d10Consumer3');
+        const ref = document.getElementById('d10Reference');
+
+        if (!layout || !svg || !producer || !c1 || !c2 || !c3 || !ref) return;
+
+        const layoutRect = layout.getBoundingClientRect();
+        const pRect = producer.getBoundingClientRect();
+        const c1Rect = c1.getBoundingClientRect();
+        const c2Rect = c2.getBoundingClientRect();
+        const c3Rect = c3.getBoundingClientRect();
+        const refRect = ref.getBoundingClientRect();
+
+        svg.setAttribute('width', layoutRect.width);
+        svg.setAttribute('height', layoutRect.height);
+        svg.style.width = layoutRect.width + 'px';
+        svg.style.height = layoutRect.height + 'px';
+
+        const toLocalX = (abs) => abs - layoutRect.left;
+        const toLocalY = (abs) => abs - layoutRect.top;
+
+        let html = '';
+
+        html += '<defs>';
+        html += '<marker id="arrowBlue10" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563EB"/></marker>';
+        html += '</defs>';
+
+        // Producer bottom-center → each consumer top-center
+        const pBottom = toLocalY(pRect.bottom);
+        const pCX = toLocalX(pRect.left + pRect.width / 2);
+
+        const consumers = [c1Rect, c2Rect, c3Rect];
+        consumers.forEach((cr) => {
+          const cCX = toLocalX(cr.left + cr.width / 2);
+          const cTop = toLocalY(cr.top);
+
+          // Line from producer bottom, fanning out to each consumer top
+          const sx = pCX + (cCX - pCX) * 0.25;
+          const sy = pBottom;
+          const ex = cCX;
+          const ey = cTop;
+
+          html += `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowBlue10)" opacity="0.5"/>`;
+        });
+
+        // Dashed lines from reference data up to consumers and producer
+        const refTop = toLocalY(refRect.top);
+        [pRect, c1Rect, c2Rect, c3Rect].forEach((r) => {
+          const cx = toLocalX(r.left + r.width / 2);
+          const bottom = toLocalY(r.bottom);
+          html += `<line x1="${cx}" y1="${bottom}" x2="${cx}" y2="${refTop}" stroke="#D4D4D8" stroke-width="1" stroke-dasharray="4,3" opacity="0.35"/>`;
+        });
+
+        svg.innerHTML = html;
+      }
+
+      window.addEventListener('load', function() { setTimeout(drawLines, 100); });
+      window.addEventListener('resize', drawLines);
+      setTimeout(drawLines, 500);
+    })();
+  </script>
+</body>
+</html>

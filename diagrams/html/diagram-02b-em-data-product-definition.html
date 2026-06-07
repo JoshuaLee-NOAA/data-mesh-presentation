@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EM Data Product Definition</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.dgm-page { padding: 2rem 1.5rem; }
+    .pd-icon { width: 22px; height: 22px; flex-shrink: 0; }
+    .pd-icon-sm { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .pd-container {
+      max-width: 900px; margin: 0 auto;
+      border: 2px solid var(--dgm-blue); border-radius: var(--radius-diagram);
+      padding: 1.25rem; background: white;
+    }
+    .pd-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 0.6rem;
+    }
+    .pd-card {
+      background: white; border: 1px solid var(--dgm-neutral-200);
+      border-radius: var(--radius-diagram); padding: 0.75rem;
+      display: flex; flex-direction: column; gap: 0.35rem;
+      box-shadow: var(--shadow-diagram);
+      min-height: 130px;
+    }
+    .pd-card-num {
+      width: 1.35rem; height: 1.35rem; background: var(--dgm-blue);
+      color: white; border-radius: 50%; font-size: 0.6rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pd-card-header {
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .pd-card-title {
+      font-weight: 700; font-size: 0.65rem; color: var(--dgm-neutral-800);
+    }
+    .pd-card-desc {
+      font-size: 0.55rem; color: var(--dgm-neutral-500); line-height: 1.35;
+    }
+    .pd-card-tech {
+      display: flex; align-items: center; gap: 0.25rem;
+      font-size: 0.52rem; color: var(--dgm-blue); font-weight: 600;
+      margin-top: auto;
+    }
+
+    /* Uniform left border for all cards */
+    .pd-card { border-left: 3px solid var(--dgm-blue); }
+  </style>
+</head>
+<body class="dgm-page">
+  <div style="text-align:center;font-size:0.65rem;font-weight:700;color:var(--dgm-neutral-500);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.75rem;">Diagram 2b — EM Data Product Definition</div>
+
+  <div class="pd-container">
+    <div class="pd-grid">
+
+      <!-- 1. Data Contract -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">1</div>
+          <div class="pd-card-title">Data Contract</div>
+        </div>
+        <div class="pd-card-desc">Stable interface between producer and consumer. Schema v1.2, SLOs, version policy, access rules, deprecation timeline.</div>
+        <div class="pd-card-tech">
+          <img src="../Category Icons/Management Tools/SVG/ManagementTools-512-color.svg" class="pd-icon-sm" alt="">
+          Data Catalog
+        </div>
+      </div>
+
+      <!-- 2. Structured Storage -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">2</div>
+          <div class="pd-card-title">Structured Storage</div>
+        </div>
+        <div class="pd-card-desc"><code>em_trip_reports</code> (partitioned by date), <code>em_species_ids</code> (clustered by region), logbook reconciliation records.</div>
+        <div class="pd-card-tech">
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="pd-icon-sm" alt="">
+          BigQuery
+        </div>
+      </div>
+
+      <!-- 3. Raw Storage -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">3</div>
+          <div class="pd-card-title">Raw Storage</div>
+        </div>
+        <div class="pd-card-desc">Raw video footage, sensor logs, reviewer notings. 90-day lifecycle → Archive tier. NARA 5-year retention.</div>
+        <div class="pd-card-tech">
+          <img src="../Unique Icons/Cloud Storage/SVG/Cloud_Storage-512-color.svg" class="pd-icon-sm" alt="">
+          Cloud Storage
+        </div>
+      </div>
+
+      <!-- 4. Interfaces -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">4</div>
+          <div class="pd-card-title">Interfaces</div>
+        </div>
+        <div class="pd-card-desc">REST API (Read) for programmatic access. SQL Query Interface for analytical consumers. Ingestion API for upstream.</div>
+        <div class="pd-card-tech">
+          <img src="../Unique Icons/Cloud Run/SVG/CloudRun-512-color-rgb.svg" class="pd-icon-sm" alt=""> Cloud Run
+          &nbsp;
+          <img src="../Unique Icons/BigQuery/SVG/BigQuery-512-color.svg" class="pd-icon-sm" alt=""> BigQuery
+        </div>
+      </div>
+
+      <!-- 5. Quality SLOs -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">5</div>
+          <div class="pd-card-title">Quality SLOs</div>
+        </div>
+        <div class="pd-card-desc">Completeness >99%, species accuracy >95% family / >90% species. Automated validation rules.</div>
+        <div class="pd-card-tech">
+          <img src="../Category Icons/Data Analytics/SVG/DataAnalytics-512-color.svg" class="pd-icon-sm" alt="">
+          Dataplex
+        </div>
+      </div>
+
+      <!-- 6. Access Controls -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">6</div>
+          <div class="pd-card-title">Access Controls</div>
+        </div>
+        <div class="pd-card-desc">Row-level security enforcing MSA §402(b) confidentiality. Federated to NOAA Azure AD. Least-privilege roles.</div>
+        <div class="pd-card-tech">
+          <img src="../Category Icons/Security Identity/SVG/SecurityIdentity-512-color.svg" class="pd-icon-sm" alt="">
+          Cloud IAM
+        </div>
+      </div>
+
+      <!-- 7. Lifecycle Management -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">7</div>
+          <div class="pd-card-title">Lifecycle Management</div>
+        </div>
+        <div class="pd-card-desc">3 stages: fishing year → 12-month retention → 5-year NARA retention. Auto-archive. Immutable audit trail.</div>
+        <div class="pd-card-tech">
+          <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="pd-icon-sm" alt="">
+          Cloud Logging
+        </div>
+      </div>
+
+      <!-- 8. Observability -->
+      <div class="pd-card">
+        <div class="pd-card-header">
+          <div class="pd-card-num">8</div>
+          <div class="pd-card-title">Observability</div>
+        </div>
+        <div class="pd-card-desc">SLO dashboards for consumers. Data freshness tracking, query latency percentiles, error rate monitoring.</div>
+        <div class="pd-card-tech">
+          <img src="../Category Icons/Observability/SVG/Observability-512-color.svg" class="pd-icon-sm" alt="">
+          Cloud Monitoring
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
