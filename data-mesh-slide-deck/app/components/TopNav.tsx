@@ -46,7 +46,7 @@ export default function TopNav({
         {/* Left: Logo placeholder */}
         <div className="flex items-center shrink-0">
           <img
-            src="/logo-skipjack.png"
+            src="/logo-skipjack.svg"
             alt="Logo"
             className="h-7 md:h-8 w-auto"
           />

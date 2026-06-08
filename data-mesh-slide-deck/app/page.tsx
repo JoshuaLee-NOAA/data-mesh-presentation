@@ -56,19 +56,19 @@ export default function Home() {
         <div className="flex flex-col items-center text-center">
           {/* Hero image */}
           <img
-            src="/hero-school.png"
+            src="/hero-school.svg"
             alt="School of skipjack tuna"
-            className="w-48 h-auto md:w-64 lg:w-72 mb-6 hero-glow hero-float"
+            className="w-48 h-auto md:w-64 lg:w-72 mb-4 hero-glow hero-float"
           />
           <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-georgetown-blue max-w-3xl leading-tight">
             An Architectural Approach to Cross-Domain Data Interoperability at
             NOAA Fisheries
           </h1>
-          <p className="font-sans text-lg lg:text-2xl text-georgetown-teal mt-4">
+          <p className="font-sans text-lg lg:text-2xl text-georgetown-teal mt-3">
             Applying the Data Mesh Paradigm in Google Cloud Platform
           </p>
-          <div className="w-20 h-1 gradient-divider mt-5" />
-          <div className="flex items-center gap-3 mt-6">
+          <div className="w-20 h-1 gradient-divider mt-4" />
+          <div className="flex items-center gap-3 mt-4">
             <span className="font-sans text-sm lg:text-base text-georgetown-gray">
               Joshua Lee — Georgetown University — Spring 2026
             </span>
@@ -77,7 +77,7 @@ export default function Home() {
           <img
             src="/IMG_1865.jpg"
             alt="Joshua Lee"
-            className="w-20 h-20 md:w-24 md:h-24 rounded-full border-3 border-georgetown-gold mt-4 shadow-lg object-cover"
+            className="w-20 h-20 md:w-24 md:h-24 rounded-full border-3 border-georgetown-gold mt-3 shadow-lg object-cover"
           />
         </div>
       </SlideWrapper>
