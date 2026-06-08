@@ -16,7 +16,7 @@ export default function SlideWrapper({
       data-slide-id={slideId}
       className={`slide bg-white ${className}`}
     >
-      <div className="flex-1 flex items-center justify-center pt-16 pb-20 px-4">
+      <div className="flex-1 flex items-center justify-center pt-14 pb-16 px-6 lg:px-12">
         {children}
       </div>
     </section>
