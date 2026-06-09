@@ -7,6 +7,7 @@
   --color-georgetown-teal: #14B8A6;
   --color-georgetown-cool-gray: #A0A0A5;
   --color-georgetown-off-white: #F5F5F0;
+  --color-georgetown-indigo: #5B7FBF;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
@@ -86,6 +87,43 @@ body {
   box-shadow: 0 0 40px rgba(244, 185, 66, 0.55), 0 0 80px rgba(244, 185, 66, 0.25);
 }
 
+/* Gradient left border for tier items (used on Slide 3) */
+.tier-line {
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, #F4B942, #14B8A6) 1;
+  padding-left: 0.75rem;
+}
+
+/* Colored dot marker for tier items (used on Slide 2) */
+.tier-dot {
+  padding-left: 1.5rem;
+  position: relative;
+}
+.tier-dot::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #14B8A6;
+}
+
+/* Gradient outline pill via pseudo-element (used on Slide 5 stat pills) */
+.stat-pill {
+  position: relative;
+  z-index: 1;
+}
+.stat-pill::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #F4B942, #14B8A6);
+  z-index: -1;
+}
+
 /* Hero image glow */
 .hero-glow {
   filter: drop-shadow(0 0 28px rgba(20, 184, 166, 0.3)) drop-shadow(0 0 56px rgba(20, 184, 166, 0.12));
@@ -98,4 +136,105 @@ body {
 }
 .hero-float {
   animation: float 5s ease-in-out infinite;
+}
+
+/* Mandate Venn center glow */
+@keyframes venn-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(1, 30, 65, 0.5), 0 0 40px rgba(1, 30, 65, 0.25), 0 0 60px rgba(1, 30, 65, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(1, 30, 65, 0.6), 0 0 80px rgba(1, 30, 65, 0.35), 0 0 120px rgba(1, 30, 65, 0.15); }
+}
+.venn-center-glow {
+  animation: venn-glow 3s ease-in-out infinite;
+}
+
+/* ========================================
+   DEBUG LAYOUT BORDERS
+   Toggle by adding class "debug-layout"
+   to <body> or <main> element
+   ======================================== */
+
+.debug-layout .db-slide {
+  border: 2px dotted #011E41 !important;
+}
+.debug-layout .db-slide::before {
+  content: "SLIDE (scroll-snap container)";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #011E41;
+  color: white;
+  font-size: 9px;
+  font-family: monospace;
+  padding: 1px 6px;
+  z-index: 999;
+  letter-spacing: 0.5px;
+}
+
+.debug-layout .db-inner {
+  border: 2px dashed #14B8A6 !important;
+}
+.debug-layout .db-inner::before {
+  content: "INNER (flex-center container)";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #14B8A6;
+  color: white;
+  font-size: 9px;
+  font-family: monospace;
+  padding: 1px 6px;
+  z-index: 999;
+  letter-spacing: 0.5px;
+}
+
+.debug-layout .db-col {
+  border: 2px dotted #F4B942 !important;
+}
+.debug-layout .db-col::before {
+  content: "COLUMN (flex-1)";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #F4B942;
+  color: #011E41;
+  font-size: 9px;
+  font-family: monospace;
+  padding: 1px 6px;
+  z-index: 999;
+  letter-spacing: 0.5px;
+}
+
+.debug-layout .db-tier {
+  border: 1px dashed #A0A0A5 !important;
+}
+.debug-layout .db-tier::before {
+  content: "TIER";
+  position: absolute;
+  top: -10px;
+  left: 4px;
+  background: #A0A0A5;
+  color: white;
+  font-size: 8px;
+  font-family: monospace;
+  padding: 0 4px;
+  z-index: 999;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.debug-layout .db-visual {
+  border: 2px dashed #8B5CF6 !important;
+}
+.debug-layout .db-visual::before {
+  content: "VISUAL (100% of container)";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #8B5CF6;
+  color: white;
+  font-size: 9px;
+  font-family: monospace;
+  padding: 1px 6px;
+  z-index: 999;
+  letter-spacing: 0.5px;
 }

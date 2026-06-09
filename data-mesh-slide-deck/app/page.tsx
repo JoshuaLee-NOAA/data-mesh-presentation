@@ -4,6 +4,12 @@ import { useEffect, useCallback } from "react";
 import TopNav from "./components/TopNav";
 import SlideArrows from "./components/SlideArrows";
 import SlideWrapper from "./components/SlideWrapper";
+import Slide02ProblemStatement from "./components/slides/Slide02ProblemStatement";
+import Slide03ResearchQuestions from "./components/slides/Slide03ResearchQuestions";
+import Slide04EMCaseStudy from "./components/slides/Slide04EMCaseStudy";
+import Slide05DataLandscape from "./components/slides/Slide05DataLandscape";
+import Slide06ArchitecturalFragmentation from "./components/slides/Slide06ArchitecturalFragmentation";
+import Slide07LegalMandates from "./components/slides/Slide07LegalMandates";
 import { useActiveSlide } from "../lib/useActiveSlide";
 import { slides } from "../data/slides";
 
@@ -79,11 +85,47 @@ export default function Home() {
             alt="Joshua Lee"
             className="w-20 h-20 md:w-24 md:h-24 rounded-full border-3 border-georgetown-gold mt-3 shadow-lg object-cover"
           />
+          {/* Disclaimer */}
+          <p className="font-sans text-[10px] text-georgetown-cool-gray italic text-center max-w-2xl leading-relaxed mt-4 pt-3 border-t border-georgetown-cool-gray/20">
+            The views expressed here are my own and do not reflect the official
+            positions of NOAA Fisheries or any affiliated entities. This work is
+            intended for personal and academic purposes only.
+          </p>
         </div>
       </SlideWrapper>
 
-      {/* Placeholder for remaining slides */}
-      {slides.slice(1).map((slide) => (
+      {/* Slide 2: The Core Problem */}
+      <SlideWrapper slideId="slide-02">
+        <Slide02ProblemStatement />
+      </SlideWrapper>
+
+      {/* Slide 3: Research Questions & Scope */}
+      <SlideWrapper slideId="slide-03">
+        <Slide03ResearchQuestions />
+      </SlideWrapper>
+
+      {/* Slide 4: Case Study — Electronic Monitoring */}
+      <SlideWrapper slideId="slide-04">
+        <Slide04EMCaseStudy />
+      </SlideWrapper>
+
+      {/* Slide 5: The Fishery Data Landscape */}
+      <SlideWrapper slideId="slide-05">
+        <Slide05DataLandscape />
+      </SlideWrapper>
+
+      {/* Slide 6: Architectural Fragmentation */}
+      <SlideWrapper slideId="slide-06">
+        <Slide06ArchitecturalFragmentation />
+      </SlideWrapper>
+
+      {/* Slide 7: Legal and Regulatory Mandates */}
+      <SlideWrapper slideId="slide-07">
+        <Slide07LegalMandates />
+      </SlideWrapper>
+
+      {/* Placeholder for remaining slides (8–25) */}
+      {slides.slice(7).map((slide) => (
         <SlideWrapper key={slide.id} slideId={slide.id}>
           <div className="text-center">
             <p className="font-display text-3xl text-georgetown-cool-gray">

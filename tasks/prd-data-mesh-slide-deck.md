@@ -20,7 +20,7 @@ The slide deck serves as a comprehensive concept-level walkthrough of the white 
 
 | # | Objective | Measurement |
 |---|-----------|-------------|
-| G1 | Present all major white paper sections in a logical, scannable narrative | 24 slides organized in 3 acts covering Sections 1-9 |
+| G1 | Present all major white paper sections in a logical, scannable narrative | 25 slides organized in 3 acts covering Sections 1-9 |
 | G2 | Create a visually polished aesthetic using Georgetown's brand palette | Consistent use of Blue (#011E41), Gray (#63666A), Gold (#F4B942), Teal (#14B8A6) accents across all slides |
 | G3 | Provide intuitive navigation with section-aware top bar and directional slide arrows | Users can jump to sections, see current slide position, and navigate forward/backward |
 | G4 | Ensure the experience is fully responsive across desktop, tablet, and mobile | Each slide adapts layout, typography, and spacing for all viewport sizes |
@@ -43,7 +43,7 @@ The slide deck serves as a comprehensive concept-level walkthrough of the white 
 ### FR-1: Slide Structure
 1. The application must render each conceptual section of the white paper as a discrete "slide."
 2. Each slide must fill 100% of the viewport height (`100vh` / `h-screen`).
-3. The slide deck must contain exactly 24 slides organized across three acts:
+3. The slide deck must contain exactly 25 slides organized across three acts:
 
 **Master Presentation Outline**
 
@@ -52,6 +52,7 @@ The slide deck serves as a comprehensive concept-level walkthrough of the white 
 | **Act I: The Context & The Crisis** | 1–7 | Problem, research questions, EM case study, data landscape, fragmentation, legal mandates |
 | **Act II: Architectural Foundations & Reference Design** | 8–18 | Big data evolution, theoretical foundations, 4 principles, domain decomposition, EM architecture, GCP landing zone, FinOps, governance, NIST, cloud estate, resource hierarchy |
 | **Act III: Execution & Strategy** | 19–24 | Migration strategy, legacy displacement, change management, tradeoffs, enterprise scaling, AI/ML + public access futures |
+| **Closing** | 25 | Author bio and links |
 
 | Slide # | Act | Title | White Paper Section |
 |---------|-----|-------|---------------------|
@@ -79,11 +80,12 @@ The slide deck serves as a comprehensive concept-level walkthrough of the white 
 | 22 | III | High-Stakes Tradeoffs and Risks | 7.0 |
 | 23 | III | Scaling Beyond the Line Office Boundary | 8.0 |
 | 24 | III | Strategic Horizons: AI/ML & Public Access | 9.3–9.4 |
+| 25 | Closing | Author Bio | — |
 
 ### FR-2: Top Navigation Bar
 4. The application must display a sticky top navigation bar visible on all slides.
 5. The top nav must include section anchor links. Minimum anchor labels: **Problem**, **Architecture**, **Migration**, **Future**.
-6. The top nav must display a slide progress indicator showing current slide number and total slides (e.g., "12 / 24").
+6. The top nav must display a slide progress indicator showing current slide number and total slides (e.g., "13 / 25").
 7. The top nav must include a Gold→Teal gradient progress bar that fills proportionally.
 8. The active section in the nav must be visually highlighted with Teal background.
 9. The top nav must include a Content dropdown listing all slide titles for direct navigation.
@@ -169,132 +171,27 @@ The slide deck serves as a comprehensive concept-level walkthrough of the white 
 
 ---
 
-## 6A. Slide-by-Slide Content & Layout Guide (New — 24 Slides, 3 Acts)
+## 6A. Slide Format Specification (25 Slides, 3 Acts)
 
-### Act I: The Context & The Crisis (Slides 1–7)
+### Alternating 50/50 Split Pattern
 
-**Slide 1: Title Slide** — COMPLETE
-- Layout: Centered. Hero image (school of skipjack tuna, floating animation + teal glow), title, subtitle, gradient divider, author line, avatar.
-- Diagram: None.
+All content slides (2–24) follow a consistent **alternating 50/50 split-screen layout**:
 
-**Slide 2: The Core Problem Statement (Section 1.1)**
-- Summary: Translating the structural architecture problem into a mission problem. Decades of programmatic autonomy have siloed analytical data, delaying resource management decisions, multiplying compliance costs, and degrading public confidence.
-- Layout: Two-Column (50/50). Left: Text explaining the structural core of the problem. Right: Visual/diagram.
-- Diagram: Fragmented data sources visualization (TBD).
+- **Slide 2:** Text (left) | Visual (right)
+- **Slide 3:** Visual (left) | Text (right)
+- **Slide 4:** Text (left) | Visual (right)
+- …continuing alternately through **Slide 24**
 
-**Slide 3: Research Questions & Scope (Sections 1.2–1.3)**
-- Summary: Five core research questions (RQ1–RQ5), bounded within NOAA Fisheries' six regions, six science centers, and eight Regional Fishery Management Councils.
-- Layout: Card Grid (3×3). 5 RQ cards + scope boundary card.
-- Diagram: None.
+**Text side:** Thesis statement with supporting information in a hierarchical structure, styled with polished UI accent elements (cards, pills, section labels, icons).
 
-**Slide 4: Case Study Target: Commercial Fishing Electronic Monitoring (Section 1.4)**
-- Summary: Introduction of the running EM case study. EM collects video, sensors, and metadata; spans multiple producers and consumers; governed by strict MSA confidentiality and multi-staged federal retention schedule.
-- Layout: Two-Column. Left: High-level EM summary. Right: Horizontal chevron timeline showing 3-stage retention lifecycle (Ingestion/Validation → Active Publication → Archival/Destruction).
-- Diagram: Chevron timeline (3 stages).
+**Visual side:** A diagram, SVG, card layout, or other visual treatment — determined collaboratively per slide. May include custom-built Tailwind components, original diagrams, or provided assets.
 
-**Slide 5: The Fishery Data Landscape (Section 2.1)**
-- Summary: Fishery data as the direct evidentiary foundation for regulatory decisions with binding legal effects (Annual Catch Limits, area closures).
-- Layout: Hub-and-spoke diagram. Central hub: "Legally Binding Fishery Management Decision." Surrounding cards: Fishery-Dependent data and Fishery-Independent data categories.
-- Diagram: Hub-and-spoke.
+### Exceptions
 
-**Slide 6: Architectural Fragmentation (Section 2.2)**
-- Summary: Analyzing the cost of uncoordinated systems. Regional databases, incompatible schemas, multi-cloud sprawl, duplicated ML models.
-- Layout: Based on paper Figure 1. Central "ML Scientist" node attempting to build a species ID model. Surrounding regional database nodes with broken/fragmented connection lines (Fragile, Blocked, Uncertain, None).
-- Diagram: Fragmentation radial — adapted from Figure 1 / 9b.
-
-**Slide 7: Legal and Regulatory Mandates (Section 2.3)**
-- Summary: Bidirectional tension between open public access mandates (OPEN Government Data Act, Evidence Act) and statutory confidentiality (MSA sec. 402(b) & 403(c)), within NIST SP 800-53 security perimeters.
-- Layout: Three-Column. Col 1: "The Mandate for Openness." Col 2: "The Mandate for Confidentiality." Col 3: "The Compliance Enforcer" (NIST RMF).
-- Diagram: None.
-
-### Act II: Architectural Foundations & Reference Design (Slides 8–18)
-
-**Slide 8: Evolution of Big Data Architectures (Sections 3.1–3.3)**
-- Summary: Tracing the transition from Data Warehouse (1990s, schema-on-write, bottleneck) → Data Lake (2010s, schema-on-read, data swamps) → Data Mesh (2020s, decentralized domain-driven, product thinking, automated policy enforcement).
-- Layout: Three-stage horizontal progression flow.
-- Diagram: None.
-
-**Slide 9: The Theoretical Blueprint (Section 3.4)**
-- Summary: Conway's Law (architectures copy organizational structures), Parnas decomposition (isolating change behind stable contracts), and Evans's Domain-Driven Design bounded contexts.
-- Layout: Three vertical pillars side-by-side (Conway, Parnas, DDD).
-- Diagram: None.
-
-**Slide 10: The Four Interdependent Principles (Section 4.0)**
-- Summary: The four data mesh principles form a self-reinforcing system. Any single principle fails without the enablement of the other three.
-- Layout: Quadrant with central "Interoperable Mesh" hub. Q1: Domain Ownership. Q2: Data as a Product. Q3: Self-Serve Platform. Q4: Federated Computational Governance.
-- Diagram: Quadrant hub diagram — adapted from Figure 11.
-
-**Slide 11: NOAA Fisheries Domain Decomposition (Section 5.1)**
-- Summary: 8 functional domains based on MSA statutory mandates. Region is a metadata dimension, not an ownership boundary.
-- Layout: Top block (Fishery Monitoring = Producer Domain). Middle: 3 consumer cards (Stock Assessment, Protected Species, Enforcement). Bottom: Cross-Cutting Reference Data.
-- Diagram: Domain decomposition map — adapted from Figure 2.
-
-**Slide 12: Data as a Product: The EM Architecture (Section 5.2)**
-- Summary: Anatomical components of the EM data product. Shift from ad-hoc extraction to contractual reliability using BigQuery tables and Cloud Storage tiers.
-- Layout: Three horizontal layers (Storage, Interface, Governance) — adapted from Figure 4.
-- Diagram: EM data product anatomy — adapted from Figure 4.
-
-**Slide 13: The Self-Serve GCP Landing Zone (Section 5.3)**
-- Summary: GCP landing zone architecture. Isolated domain projects under folder perimeters, Shared VPC networking, CMEK encryption, automated Terraform templates.
-- Layout: Multi-column resource hierarchy — adapted from Figures 6 and 7.
-- Diagram: GCP Landing Zone — adapted from Figures 6/7.
-
-**Slide 14: FinOps: Cost Attribution Engine (Section 5.3)**
-- Summary: Navigating federal funding fragmentation. Centralized budgets fund platform capital services; variable domain usage is cost-recovered via automated resource labeling.
-- Layout: Split horizontal. Top: Centralized funding block. Bottom: Fan-out flow showing labeled resources routing billing to regional Financial Management Centers.
-- Diagram: FinOps flow.
-
-**Slide 15: Federated Computational Governance (Section 5.4)**
-- Summary: Cross-domain Council defines global standards encoded as executable platform policies (Terraform guardrails, Dataplex rules), eliminating manual approval bottlenecks.
-- Layout: Vertical cascading sequence. Step 1: Global Policies. Step 2: Domain Policies. Step 3: Product Policies. Callout box: code snippet (GCP IAM Custom Role).
-- Diagram: Three-tier governance cascade.
-
-**Slide 16: NIST SP 800-53 Control Inheritance (Section 5.4)**
-- Summary: Three-tier control inheritance enabling continuous authorization. ~60-70% of NIST controls are inherited from the platform, shifting the compliance burden from domain scientists.
-- Layout: Three stacked layers — adapted from Figure 9. Top: System-Specific Controls. Middle: Platform ATO Hybrid Controls (6 controls). Bottom: FedRAMP Common Controls.
-- Diagram: NIST control inheritance — adapted from Figure 9.
-
-**Slide 17: The Broader Cloud Estate (Section 5.6)**
-- Summary: Taxonomy for non-mesh workloads: transactional sources, software apps, data pipelines, scientific computing, HPC & AI/ML training systems.
-- Layout: 5-column horizontal card layout, one per workload type.
-- Diagram: None (card taxonomy).
-
-**Slide 18: Recommended Resource Hierarchy (Section 5.6)**
-- Summary: Side-by-side comparison of Domain-Coupled vs. Domain-Separated resource designs. Paper recommends Domain-Separated as optimal for NOAA Fisheries.
-- Layout: Comparison Split. Left: Domain-Coupled (with red PII risks annotation). Right: Domain-Separated (with green optimal annotation) — adapted from Figures 11 and 12.
-- Diagram: Domain-Coupled vs. Domain-Separated — adapted from Figures 11/12.
-
-### Act III: Execution & Strategy (Slides 19–24)
-
-**Slide 19: The Evolutionary Migration Strategy (Section 6.1)**
-- Summary: Socio-technical migration roadmap. Technical phases must be preceded by organizational readiness tracks (capability building, change management, governance formation).
-- Layout: Two parallel tracks — adapted from Figure 13. Top: Technical Migration timeline. Bottom: Organizational Readiness timeline. Vertical "Enables" arrows.
-- Diagram: Migration phases and dependencies — adapted from Figure 13.
-
-**Slide 20: Legacy Displacement Mechanics (Section 6.2)**
-- Summary: Software engineering patterns for safely replacing legacy Oracle databases with BigQuery data products without interrupting operational quotas or stock assessments.
-- Layout: Three-panel sequential flow — adapted from Figure 15. Panel 1 (Before): ACL → Oracle. Panel 2 (During): ACL splits → Oracle + BigQuery. Panel 3 (After): ACL → BigQuery, Oracle decommissioned.
-- Diagram: Migration data flow — adapted from Figure 15.
-
-**Slide 21: Organizational Capabilities & Change Management (Sections 6.3–6.4)**
-- Summary: Shifting central IT from gatekeepers to platform enablers, embedding data engineers within scientific domains, constructing communities of practice.
-- Layout: Two-Column. Left: Strategic Workstreams (Sponsorship, Engagement, Training). Right: Tactical Resource Shifts (embedded engineer model, DPO stewardship, feedback loop).
-- Diagram: None.
-
-**Slide 22: High-Stakes Tradeoffs and Risks (Section 7.0)**
-- Summary: Balanced evaluation of data mesh vulnerabilities. Domain agility vs. organizational disruption, upfront platform investments vs. long-term duplicate-cost reduction, danger of uncoordinated fragmentation.
-- Layout: Structured 2×3 matrix. Row 1: Risks. Row 2: Corresponding Mitigations.
-- Diagram: None (risk matrix).
-
-**Slide 23: Scaling Beyond the Line Office Boundary (Section 8.0)**
-- Summary: Limits of the mesh pattern at NOAA enterprise scale. Recommends pragmatic federated approach over monolithic unified mesh, using platform-agnostic data contracts, federated catalogs, and cross-cloud gateways.
-- Layout: Hub-and-spoke — adapted from Figure 16. Top: NOAA Line Office nodes. Bottom: 4 federation bridges spanning multi-cloud platforms.
-- Diagram: Federated NOAA Enterprise — adapted from Figure 16.
-
-**Slide 24: Strategic Horizons: AI/ML & Public Access (Sections 9.3–9.4)**
-- Summary: Using contract-governed data products to feed ML pipelines (automated species ID) and deliver real-time public data (industry quota tracking) via policy-governed BigQuery views.
-- Layout: Two-Column. Left: AI/ML pipeline schematic. Right: Public Access — single data product serving internal managers and public fishermen via row-level filters.
-- Diagram: AI/ML + Public Access flow.
+| Slide | Layout | Notes |
+|-------|--------|-------|
+| **1 — Title Slide** | Centered | Existing hero image + floating animation + teal glow (unchanged) |
+| **25 — Author Bio** | Full-screen bio card | Author photo, bio text, links/contacts, distinct background treatment |
 
 ---
 
@@ -318,10 +215,10 @@ The slide deck serves as a comprehensive concept-level walkthrough of the white 
 - `SlideWrapper.tsx`, `page.tsx` with scroll-snap, keyboard nav, Slide 1 rendered
 
 ### Phase 5: Slide-by-Slide Build (IN PROGRESS)
-Build each slide (2–24) as a complete unit: text content + layout + diagram (if applicable). Slide 1 is complete.
+Build each slide (2–25) as a complete unit using the alternating 50/50 split pattern. Slide 1 (Title) is complete.
 
 ### Phase 6: Final Integration & Deployment
-- Verify all 24 slides, responsive testing, `npm run build`, Vercel deployment
+- Verify all 25 slides, responsive testing, `npm run build`, Vercel deployment
 
 ---
 
@@ -367,7 +264,7 @@ data-mesh-slide-deck/
 
 | Metric | Target |
 |--------|--------|
-| Total slides | 24 covering all white paper sections |
+| Total slides | 25 covering all white paper sections |
 | Build succeeds | `npm run build` exits with 0 errors |
 | Responsive behavior | Slides render correctly at 320px, 768px, 1024px, 1440px |
 | Navigation functionality | Scroll-snap, arrows, keyboard nav all advance correctly |

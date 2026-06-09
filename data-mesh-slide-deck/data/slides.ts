@@ -21,12 +21,12 @@ export const sectionAnchors: SectionAnchor[] = [
 
 export const slides: SlideMeta[] = [
   { id: "slide-01", section: "", title: "Title" },
-  { id: "slide-02", section: "slide-02", title: "Slide 2" },
-  { id: "slide-03", section: "", title: "Slide 3" },
-  { id: "slide-04", section: "", title: "Slide 4" },
-  { id: "slide-05", section: "slide-05", title: "Slide 5" },
-  { id: "slide-06", section: "", title: "Slide 6" },
-  { id: "slide-07", section: "slide-07", title: "Slide 7" },
+  { id: "slide-02", section: "slide-02", title: "The Core Problem" },
+  { id: "slide-03", section: "", title: "Research Questions & Scope" },
+  { id: "slide-04", section: "", title: "Case Study: Electronic Monitoring" },
+  { id: "slide-05", section: "slide-05", title: "The Fishery Data Landscape" },
+  { id: "slide-06", section: "", title: "Architectural Fragmentation" },
+  { id: "slide-07", section: "slide-07", title: "Legal and Regulatory Mandates" },
   { id: "slide-08", section: "", title: "Slide 8" },
   { id: "slide-09", section: "", title: "Slide 9" },
   { id: "slide-10", section: "", title: "Slide 10" },
