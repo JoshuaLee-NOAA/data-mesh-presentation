@@ -80,7 +80,7 @@ export default function TopNav({
 
             {/* Dropdown menu */}
             {dropdownOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 max-h-72 overflow-y-auto bg-white border border-georgetown-cool-gray/20 rounded-xl shadow-xl z-50">
+              <div className="absolute right-0 top-full mt-2 w-72 max-h-72 overflow-y-auto bg-white border border-georgetown-cool-gray/20 rounded-xl shadow-xl z-50">
                 {slides.map((s, i) => (
                   <button
                     key={s.id}

@@ -10,6 +10,7 @@ import Slide04EMCaseStudy from "./components/slides/Slide04EMCaseStudy";
 import Slide05DataLandscape from "./components/slides/Slide05DataLandscape";
 import Slide06ArchitecturalFragmentation from "./components/slides/Slide06ArchitecturalFragmentation";
 import Slide07LegalMandates from "./components/slides/Slide07LegalMandates";
+import Slide08BigDataEvolution from "./components/slides/Slide08BigDataEvolution";
 import { useActiveSlide } from "../lib/useActiveSlide";
 import { slides } from "../data/slides";
 
@@ -124,8 +125,13 @@ export default function Home() {
         <Slide07LegalMandates />
       </SlideWrapper>
 
-      {/* Placeholder for remaining slides (8–25) */}
-      {slides.slice(7).map((slide) => (
+      {/* Slide 8: Evolution of Big Data Architectures */}
+      <SlideWrapper slideId="slide-08">
+        <Slide08BigDataEvolution />
+      </SlideWrapper>
+
+      {/* Placeholder for remaining slides (9–25) */}
+      {slides.slice(8).map((slide) => (
         <SlideWrapper key={slide.id} slideId={slide.id}>
           <div className="text-center">
             <p className="font-display text-3xl text-georgetown-cool-gray">

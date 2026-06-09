@@ -27,7 +27,7 @@ export const slides: SlideMeta[] = [
   { id: "slide-05", section: "slide-05", title: "The Fishery Data Landscape" },
   { id: "slide-06", section: "", title: "Architectural Fragmentation" },
   { id: "slide-07", section: "slide-07", title: "Legal and Regulatory Mandates" },
-  { id: "slide-08", section: "", title: "Slide 8" },
+  { id: "slide-08", section: "", title: "Evolution of Big Data Architectures" },
   { id: "slide-09", section: "", title: "Slide 9" },
   { id: "slide-10", section: "", title: "Slide 10" },
   { id: "slide-11", section: "", title: "Slide 11" },
