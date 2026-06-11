@@ -11,6 +11,9 @@ import Slide05DataLandscape from "./components/slides/Slide05DataLandscape";
 import Slide06ArchitecturalFragmentation from "./components/slides/Slide06ArchitecturalFragmentation";
 import Slide07LegalMandates from "./components/slides/Slide07LegalMandates";
 import Slide08BigDataEvolution from "./components/slides/Slide08BigDataEvolution";
+import Slide09ArchitectureFollowsOrganization from "./components/slides/Slide09ArchitectureFollowsOrganization";
+import Slide10FourPrinciples from "./components/slides/Slide10FourPrinciples";
+import Slide11DomainDecomposition from "./components/slides/Slide11DomainDecomposition";
 import { useActiveSlide } from "../lib/useActiveSlide";
 import { slides } from "../data/slides";
 
@@ -130,8 +133,23 @@ export default function Home() {
         <Slide08BigDataEvolution />
       </SlideWrapper>
 
-      {/* Placeholder for remaining slides (9–25) */}
-      {slides.slice(8).map((slide) => (
+      {/* Slide 9: Architecture Follows Organization */}
+      <SlideWrapper slideId="slide-09">
+        <Slide09ArchitectureFollowsOrganization />
+      </SlideWrapper>
+
+      {/* Slide 10: The Four Interdependent Principles */}
+      <SlideWrapper slideId="slide-10">
+        <Slide10FourPrinciples />
+      </SlideWrapper>
+
+      {/* Slide 11: NOAA Fisheries Domain Decomposition */}
+      <SlideWrapper slideId="slide-11">
+        <Slide11DomainDecomposition />
+      </SlideWrapper>
+
+      {/* Placeholder for remaining slides (12–25) */}
+      {slides.slice(11).map((slide) => (
         <SlideWrapper key={slide.id} slideId={slide.id}>
           <div className="text-center">
             <p className="font-display text-3xl text-georgetown-cool-gray">

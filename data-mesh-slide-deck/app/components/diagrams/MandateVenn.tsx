@@ -46,7 +46,7 @@ export default function MandateVenn() {
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-georgetown-blue leading-tight text-center mb-1">
           Information{" "}
           <br className="md:hidden" />
-          Security
+          Security Policy
         </span>
         <span className="text-[7px] md:text-[8px] font-medium text-georgetown-gray leading-tight">
           NIST SP 800-53
@@ -69,7 +69,7 @@ export default function MandateVenn() {
       >
         <Database size={14} className="text-georgetown-teal mb-1" />
         <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-georgetown-teal mb-1">
-          Data
+          Data Policy
         </span>
         <span className="text-[7px] md:text-[8px] font-medium text-georgetown-gray leading-tight">
           Evidence / OPEN Data Acts
